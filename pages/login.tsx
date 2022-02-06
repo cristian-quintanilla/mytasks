@@ -17,15 +17,15 @@ const LoginPage = () => {
 					<h1>Login</h1>
 
 					<section className='login__social'>
-						<button className='login__social-button'>
+						<button type='button' className='login__social-button'>
 							<BsGoogle />
 						</button>
 
-						<button className='login__social-button'>
+						<button type='button' className='login__social-button'>
 							<BsFacebook />
 						</button>
 
-						<button className='login__social-button'>
+						<button type='button' className='login__social-button'>
 							<BsTwitter />
 						</button>
 					</section>
@@ -33,22 +33,41 @@ const LoginPage = () => {
 					<p className='login__text'>or use your account</p>
 
 					<section className='login__form-group'>
-						<label htmlFor='email' className='login__form-group-label'>
+						<label
+							htmlFor='email'
+							className='login__form-group-label'
+						>
 							Email:
 						</label>
 
-						<input type='email' className='login__form-group-input' id='email' />
+						<input
+							type='email'
+							className='login__form-group-input'
+							id='email'
+							placeholder='Email'
+						/>
 					</section>
 
 					<section className='login__form-group'>
-						<label htmlFor='password' className='login__form-group-label'>
+						<label
+							htmlFor='password'
+							className='login__form-group-label'
+						>
 							Password:
 						</label>
 
-						<input type='password' className='login__form-group-input' id='password' />
+						<input
+							type='password'
+							className='login__form-group-input'
+							id='password'
+							placeholder='Password'
+						/>
 					</section>
 
-					<button className='login__form-submit'>
+					<button
+						className='login__form-submit'
+						type='submit'
+					>
 						Login
 					</button>
 				</form>

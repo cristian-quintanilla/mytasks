@@ -9,7 +9,7 @@
 	margin: 5rem;
 	padding: 0rem;
 
-	@media only screen and (max-width: $bp-small) {
+	@media only screen and (max-width: $bp-medium) {
 		flex-direction: column;
 	}
 
@@ -18,13 +18,64 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
+		gap: 1rem;
 
 		border-radius: 1.5rem 0 0 1.5rem;
-		height: 40vh;
+		height: 75vh;
 		width: 100%;
 
 		@media only screen and (max-width: $bp-small) {
 			border-radius: 1.5rem 1.5rem 0 0;
+		}
+
+		h1 {
+			color: $color-grey-dark-1;
+			font-size: 3rem;
+			text-transform: uppercase;
+			margin-bottom: .5rem;
+		}
+
+		&-group {
+			display: flex;
+			flex-direction: column;
+			gap: .35rem;
+			width: 75%;
+
+			&-label {
+				color: $color-grey-dark-2;
+				font-size: 1.5rem;
+			}
+
+			&-input {
+				background-color: lighten($color: $color-grey-dark-1, $amount: 62.5);
+				border: none;
+				outline: none;
+				padding: 1.25rem 1.75rem;
+
+				&::placeholder {
+					color: lighten($color: $color-grey-dark-1, $amount: 30);
+				}
+			}
+		}
+
+		&-submit {
+			background-color: $color-primary;
+			border: none;
+			border-radius: 1rem;
+			color: $color-grey-light-1;
+			font-size: 1.6rem;
+			font-weight: 600;
+			padding: 1.25rem 2rem;
+			margin-top: 1rem;
+			text-transform: uppercase;
+			width: 75%;
+
+			transition: all .5s ease;
+
+			&:hover {
+				background-color: $color-secondary;
+				cursor: pointer;
+			}
 		}
 	}
 
@@ -33,13 +84,13 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		gap: 3rem;
+		gap: 2rem;
 
 		background-image: linear-gradient(45deg, $color-secondary, $color-primary);
 		border-radius: 0 1.5rem 1.5rem 0;
 		padding: 0 2.5rem;
 		text-align: center;
-		height: 40vh;
+		height: 75vh;
 		width: 100%;
 
 		@media only screen and (max-width: $bp-small) {
@@ -48,12 +99,13 @@
 
 		h1 {
 			color: $color-grey-light-1;
-			font-size: 3.5rem;
+			font-size: 2.4rem;
+			text-transform: uppercase;
 		}
 
 		p {
 			color: $color-grey-light-1;
-			font-size: 2rem;
+			font-size: 1.6rem;
 		}
 
 		a {
@@ -71,5 +123,38 @@
     		background-color: $color-grey-light-1;
 			}
 		}
+	}
+
+	&__social {
+		display: flex;
+		justify-content: space-between;
+		gap: 2rem;
+
+		margin-bottom: .5rem;
+
+		&-button {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			transition: all .5s ease;
+
+			border: 1px solid $color-grey-dark-1;
+			border-radius: 100%;
+			background-color: lighten($color: $color-grey-light-1, $amount: 25);
+			color: $color-grey-dark-1;
+			height: 4rem;
+			width: 4rem;
+
+			&:hover {
+				background-color: $color-grey-dark-1;
+				color: lighten($color: $color-grey-light-1, $amount: 25);
+				cursor: pointer;
+			}
+		}
+	}
+
+	&__text {
+		color: $color-grey-dark-1;
+		font-size: 1.65rem;
 	}
 }
