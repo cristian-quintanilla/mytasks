@@ -1,4 +1,5 @@
-.login {
+//* Mixins
+@mixin display-form {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -6,12 +7,36 @@
 	background-color: lighten($color: $color-grey-light-2, $amount: 30);
 	border-radius: 1.5rem;
 	box-shadow: 5px 5px 15px -4px rgba(0, 0, 0, 0.50);
-	margin: 5rem;
 	padding: 0rem;
 
 	@media only screen and (max-width: $bp-medium) {
 		flex-direction: column;
 	}
+}
+
+@mixin info-message($border-radius, $border-radius-small) {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 2rem;
+
+	border-radius: $border-radius;
+	padding: 0 2.5rem;
+	text-align: center;
+	height: 85vh;
+	width: 40vw;
+
+	@media only screen and (max-width: $bp-medium) {
+		border-radius: $border-radius-small;
+		height: 30vh;
+		width: 75vw;
+	}
+}
+
+//* Login Page
+.login {
+	@include display-form;
 
 	&__form {
 		display: flex;
@@ -21,11 +46,13 @@
 		gap: 1rem;
 
 		border-radius: 1.5rem 0 0 1.5rem;
-		height: 75vh;
-		width: 100%;
+		height: 85vh;
+		width: 40vw;
 
-		@media only screen and (max-width: $bp-small) {
+		@media only screen and (max-width: $bp-medium) {
 			border-radius: 1.5rem 1.5rem 0 0;
+			height: 65vh;
+			width: 75vw;
 		}
 
 		h1 {
@@ -49,6 +76,7 @@
 			&-input {
 				background-color: lighten($color: $color-grey-dark-1, $amount: 62.5);
 				border: none;
+				border-radius: .5rem;
 				outline: none;
 				padding: 1.25rem 1.75rem;
 
@@ -80,22 +108,9 @@
 	}
 
 	&__register {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		gap: 2rem;
+		@include info-message(0 1.5rem 1.5rem 0, 0 0 1.5rem 1.5rem);
 
 		background-image: linear-gradient(45deg, $color-secondary, $color-primary);
-		border-radius: 0 1.5rem 1.5rem 0;
-		padding: 0 2.5rem;
-		text-align: center;
-		height: 75vh;
-		width: 100%;
-
-		@media only screen and (max-width: $bp-small) {
-			border-radius: 0 0 1.5rem 1.5rem;
-		}
 
 		h1 {
 			color: $color-grey-light-1;
@@ -146,8 +161,131 @@
 			width: 4rem;
 
 			&:hover {
-				background-color: $color-grey-dark-1;
 				color: lighten($color: $color-grey-light-1, $amount: 25);
+				cursor: pointer;
+			}
+
+			&:nth-child(1):hover {
+				background-color: $color-google;
+			}
+
+			&:nth-child(2):hover {
+				background-color: $color-facebook;
+			}
+
+			&:nth-child(3):hover {
+				background-color: $color-twitter;
+			}
+		}
+	}
+
+	&__text {
+		color: $color-grey-dark-1;
+		font-size: 1.65rem;
+	}
+}
+
+//* Register Page
+.register {
+	@include display-form;
+
+	&__login {
+		@include info-message(1.5rem 0 0 1.5rem, 1.5rem 1.5rem 0 0);
+
+		background-image: linear-gradient(45deg, $color-secondary, $color-primary);
+
+		h1 {
+			color: $color-grey-light-1;
+			font-size: 2.4rem;
+			text-transform: uppercase;
+		}
+
+		p {
+			color: $color-grey-light-1;
+			font-size: 1.6rem;
+		}
+
+		a {
+			color: $color-grey-light-1;
+			font-size: 1.75rem;
+			padding: .75rem 2.5rem;
+			text-decoration: none;
+			transition: all .5s ease;
+
+			border: 2px solid $color-grey-light-1;
+			border-radius: 1rem;
+
+			&:hover {
+				color: $color-primary;
+    		background-color: $color-grey-light-1;
+			}
+		}
+	}
+
+	&__form {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 1rem;
+
+		border-radius: 1.5rem 0 0 1.5rem;
+		height: 85vh;
+		width: 40vw;
+
+		@media only screen and (max-width: $bp-medium) {
+			border-radius: 1.5rem 1.5rem 0 0;
+			height: 65vh;
+			width: 75vw;
+		}
+
+		h1 {
+			color: $color-grey-dark-1;
+			font-size: 3rem;
+			text-transform: uppercase;
+			margin-bottom: .5rem;
+		}
+
+		&-group {
+			display: flex;
+			flex-direction: column;
+			gap: .35rem;
+			width: 75%;
+
+			&-label {
+				color: $color-grey-dark-2;
+				font-size: 1.5rem;
+			}
+
+			&-input {
+				background-color: lighten($color: $color-grey-dark-1, $amount: 62.5);
+				border: none;
+				border-radius: .5rem;
+				outline: none;
+				padding: 1.25rem 1.75rem;
+
+				&::placeholder {
+					color: lighten($color: $color-grey-dark-1, $amount: 30);
+				}
+			}
+		}
+
+		&-submit {
+			background-color: $color-primary;
+			border: none;
+			border-radius: 1rem;
+			color: $color-grey-light-1;
+			font-size: 1.6rem;
+			font-weight: 600;
+			padding: 1.25rem 2rem;
+			margin-top: 1rem;
+			text-transform: uppercase;
+			width: 75%;
+
+			transition: all .5s ease;
+
+			&:hover {
+				background-color: $color-secondary;
 				cursor: pointer;
 			}
 		}

@@ -22,3 +22,10 @@ body {
 	font-weight: 300;
 	line-height: 1.6;
 }
+
+.container {
+	display: grid;
+  place-content: center;
+  height: 100vh;
+	padding: 2rem;
+}
