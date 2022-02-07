@@ -1,0 +1,51 @@
+@mixin font-heading($size, $weight) {
+	font-family: $font-heading;
+	font-size: $size;
+	font-weight: $weight;
+	line-height: 1.2;
+}
+
+@mixin paragraph {
+	font-family: $font-display;
+	font-size: 1.6rem;
+	font-weight: 400;
+	line-height: 1.5;
+}
+
+.h1 {
+	@include font-heading(6rem, 700);
+}
+
+.h2 {
+	@include font-heading(5rem, 600);
+}
+
+.h3 {
+	@include font-heading(4rem, 600);
+}
+
+.h4 {
+	@include font-heading(3.5rem, 500);
+}
+
+.h5 {
+	@include font-heading(3rem, 500);
+}
+
+.h6 {
+	@include font-heading(2.5rem, 300);
+}
+
+.text-light {
+	@include paragraph;
+	color: lighten($color: $color-grey-light-1, $amount: 15);
+}
+
+.text-dark {
+	@include paragraph;
+	color: lighten($color: $color-grey-dark-1, $amount: 10);
+}
+
+.uppercase {
+	text-transform: uppercase;
+}

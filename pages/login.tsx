@@ -15,7 +15,7 @@ const LoginPage = () => {
 			<div className='container'>
 				<section className='login'>
 					<form className='login__form'>
-						<h1>Login</h1>
+						<h1 className='h3 uppercase'>Login</h1>
 
 						<section className='login__social'>
 							<button type='button' className='login__social-button'>
@@ -31,7 +31,7 @@ const LoginPage = () => {
 							</button>
 						</section>
 
-						<p className='login__text'>or use your account</p>
+						<p className='text-dark mb-sm'>or use your account</p>
 
 						<section className='login__form-group'>
 							<label
@@ -75,8 +75,8 @@ const LoginPage = () => {
 					</form>
 
 					<section className='login__register'>
-						<h1>Hello, Friend!</h1>
-						<p>
+						<h1 className='h3'>Hello, Friend!</h1>
+						<p className='text-light'>
 							You don't have an account? You can create one here:
 						</p>
 

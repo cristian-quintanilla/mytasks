@@ -1,6 +1,8 @@
 //* Base
 @import './base/settings';
 @import './base/base';
+@import './base//typography';
+@import './base/utilities';
 
 //* Components
 @import './components/auth';

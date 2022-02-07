@@ -13,8 +13,8 @@ const LoginPage = () => {
 			<div className='container'>
 				<section className='register'>
 					<section className='register__login'>
-						<h1>Welcome Back!</h1>
-						<p>
+						<h1 className='h3'>Welcome Back!</h1>
+						<p className='text-light'>
 							To keep connected with us please login with your personal info
 						</p>
 
@@ -24,9 +24,9 @@ const LoginPage = () => {
 					</section>
 
 					<form className='register__form'>
-						<h1>Register</h1>
+						<h1 className='h3 uppercase'>Register</h1>
 
-						<p className='register__text'>Create an account</p>
+						<p className='text-dark'>Create an account</p>
 
 						<section className='register__form-group'>
 							<label

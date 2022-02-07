@@ -22,15 +22,15 @@
 	gap: 2rem;
 
 	border-radius: $border-radius;
-	padding: 0 2.5rem;
+	padding: 0 2rem;
 	text-align: center;
 	height: 85vh;
 	width: 40vw;
 
 	@media only screen and (max-width: $bp-medium) {
 		border-radius: $border-radius-small;
-		height: 30vh;
-		width: 75vw;
+		height: 32.5vh;
+		width: 80vw;
 	}
 }
 
@@ -51,15 +51,8 @@
 
 		@media only screen and (max-width: $bp-medium) {
 			border-radius: 1.5rem 1.5rem 0 0;
-			height: 65vh;
-			width: 75vw;
-		}
-
-		h1 {
-			color: $color-grey-dark-1;
-			font-size: 3rem;
-			text-transform: uppercase;
-			margin-bottom: .5rem;
+			height: 62.5vh;
+			width: 80vw;
 		}
 
 		&-group {
@@ -70,7 +63,7 @@
 
 			&-label {
 				color: $color-grey-dark-2;
-				font-size: 1.5rem;
+				font-size: 1.6rem;
 			}
 
 			&-input {
@@ -81,7 +74,8 @@
 				padding: 1.25rem 1.75rem;
 
 				&::placeholder {
-					color: lighten($color: $color-grey-dark-1, $amount: 30);
+					color: lighten($color: $color-grey-dark-1, $amount: 20);
+					font-size: 1.4rem;
 				}
 			}
 		}
@@ -111,17 +105,7 @@
 		@include info-message(0 1.5rem 1.5rem 0, 0 0 1.5rem 1.5rem);
 
 		background-image: linear-gradient(45deg, $color-secondary, $color-primary);
-
-		h1 {
-			color: $color-grey-light-1;
-			font-size: 2.4rem;
-			text-transform: uppercase;
-		}
-
-		p {
-			color: $color-grey-light-1;
-			font-size: 1.6rem;
-		}
+		color: $color-grey-light-1 !important;
 
 		a {
 			color: $color-grey-light-1;
@@ -178,11 +162,6 @@
 			}
 		}
 	}
-
-	&__text {
-		color: $color-grey-dark-1;
-		font-size: 1.65rem;
-	}
 }
 
 //* Register Page
@@ -193,17 +172,7 @@
 		@include info-message(1.5rem 0 0 1.5rem, 1.5rem 1.5rem 0 0);
 
 		background-image: linear-gradient(45deg, $color-secondary, $color-primary);
-
-		h1 {
-			color: $color-grey-light-1;
-			font-size: 2.4rem;
-			text-transform: uppercase;
-		}
-
-		p {
-			color: $color-grey-light-1;
-			font-size: 1.6rem;
-		}
+		color: $color-grey-light-1 !important;
 
 		a {
 			color: $color-grey-light-1;
@@ -235,15 +204,8 @@
 
 		@media only screen and (max-width: $bp-medium) {
 			border-radius: 1.5rem 1.5rem 0 0;
-			height: 65vh;
-			width: 75vw;
-		}
-
-		h1 {
-			color: $color-grey-dark-1;
-			font-size: 3rem;
-			text-transform: uppercase;
-			margin-bottom: .5rem;
+			height: 62.5vh;
+			width: 80vw;
 		}
 
 		&-group {
@@ -254,7 +216,7 @@
 
 			&-label {
 				color: $color-grey-dark-2;
-				font-size: 1.5rem;
+				font-size: 1.6rem;
 			}
 
 			&-input {
@@ -265,7 +227,8 @@
 				padding: 1.25rem 1.75rem;
 
 				&::placeholder {
-					color: lighten($color: $color-grey-dark-1, $amount: 30);
+					color: lighten($color: $color-grey-dark-1, $amount: 20);
+					font-size: 1.4rem;
 				}
 			}
 		}
@@ -289,10 +252,5 @@
 				cursor: pointer;
 			}
 		}
-	}
-
-	&__text {
-		color: $color-grey-dark-1;
-		font-size: 1.65rem;
 	}
 }
