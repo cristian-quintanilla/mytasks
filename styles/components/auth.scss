@@ -1,19 +1,4 @@
 //* Mixins
-@mixin display-form {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-
-	background-color: lighten($color: $color-grey-light-2, $amount: 30);
-	border-radius: 1.5rem;
-	box-shadow: 5px 5px 15px -4px rgba(0, 0, 0, 0.50);
-	padding: 0rem;
-
-	@media only screen and (max-width: $bp-medium) {
-		flex-direction: column;
-	}
-}
-
 @mixin info-message($border-radius, $border-radius-small) {
 	display: flex;
 	flex-direction: column;
@@ -34,94 +19,122 @@
 	}
 }
 
+@mixin display-form {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	background-color: lighten($color: $color-grey-light-2, $amount: 30);
+	border-radius: 1.5rem;
+	box-shadow: 5px 5px 15px -4px rgba(0, 0, 0, 0.50);
+	padding: 0rem;
+
+	@media only screen and (max-width: $bp-medium) {
+		flex-direction: column;
+	}
+}
+
+@mixin form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 1rem;
+
+	border-radius: 1.5rem 0 0 1.5rem;
+	height: 85vh;
+	width: 40vw;
+
+	@media only screen and (max-width: $bp-medium) {
+		border-radius: 1.5rem 1.5rem 0 0;
+		height: 62.5vh;
+		width: 80vw;
+	}
+}
+
+@mixin form-group {
+	&-group {
+		display: flex;
+		flex-direction: column;
+		gap: .35rem;
+		width: 75%;
+
+		&-label {
+			color: $color-grey-dark-2;
+			font-size: 1.6rem;
+		}
+
+		&-input {
+			background-color: lighten($color: $color-grey-dark-1, $amount: 62.5);
+			border: none;
+			border-radius: .5rem;
+			outline: none;
+			padding: 1.25rem 1.75rem;
+
+			&::placeholder {
+				color: lighten($color: $color-grey-dark-1, $amount: 20);
+				font-size: 1.4rem;
+			}
+		}
+	}
+}
+
+@mixin form-submit {
+	&-submit {
+		background-color: $color-primary;
+		border: none;
+		border-radius: 1rem;
+		color: $color-grey-light-1;
+		font-size: 1.6rem;
+		font-weight: 600;
+		padding: 1.25rem 2rem;
+		margin-top: 1rem;
+		text-transform: uppercase;
+		width: 75%;
+
+		transition: all .5s ease;
+
+		&:hover {
+			background-color: $color-secondary;
+			cursor: pointer;
+		}
+	}
+}
+
+@mixin anchor-link {
+	a {
+		color: $color-grey-light-1;
+		font-size: 1.75rem;
+		padding: .75rem 2.5rem;
+		text-decoration: none;
+		transition: all .5s ease;
+
+		border: 2px solid $color-grey-light-1;
+		border-radius: 1rem;
+
+		&:hover {
+			color: $color-primary;
+			background-color: $color-grey-light-1;
+		}
+	}
+}
+
 //* Login Page
 .login {
 	@include display-form;
 
 	&__form {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		gap: 1rem;
-
-		border-radius: 1.5rem 0 0 1.5rem;
-		height: 85vh;
-		width: 40vw;
-
-		@media only screen and (max-width: $bp-medium) {
-			border-radius: 1.5rem 1.5rem 0 0;
-			height: 62.5vh;
-			width: 80vw;
-		}
-
-		&-group {
-			display: flex;
-			flex-direction: column;
-			gap: .35rem;
-			width: 75%;
-
-			&-label {
-				color: $color-grey-dark-2;
-				font-size: 1.6rem;
-			}
-
-			&-input {
-				background-color: lighten($color: $color-grey-dark-1, $amount: 62.5);
-				border: none;
-				border-radius: .5rem;
-				outline: none;
-				padding: 1.25rem 1.75rem;
-
-				&::placeholder {
-					color: lighten($color: $color-grey-dark-1, $amount: 20);
-					font-size: 1.4rem;
-				}
-			}
-		}
-
-		&-submit {
-			background-color: $color-primary;
-			border: none;
-			border-radius: 1rem;
-			color: $color-grey-light-1;
-			font-size: 1.6rem;
-			font-weight: 600;
-			padding: 1.25rem 2rem;
-			margin-top: 1rem;
-			text-transform: uppercase;
-			width: 75%;
-
-			transition: all .5s ease;
-
-			&:hover {
-				background-color: $color-secondary;
-				cursor: pointer;
-			}
-		}
+		@include form;
+		@include form-group;
+		@include form-submit;
 	}
 
 	&__register {
 		@include info-message(0 1.5rem 1.5rem 0, 0 0 1.5rem 1.5rem);
+		@include anchor-link;
 
 		background-image: linear-gradient(45deg, $color-secondary, $color-primary);
-		color: $color-grey-light-1 !important;
-
-		a {
-			color: $color-grey-light-1;
-			font-size: 1.75rem;
-			padding: .75rem 2.5rem;
-			text-decoration: none;
-			transition: all .5s ease;
-
-			border: 2px solid $color-grey-light-1;
-			border-radius: 1rem;
-
-			&:hover {
-				color: $color-primary;
-    		background-color: $color-grey-light-1;
-			}
-		}
+		color: $color-grey-light-1;
 	}
 
 	&__social {
@@ -168,89 +181,17 @@
 .register {
 	@include display-form;
 
-	&__login {
-		@include info-message(1.5rem 0 0 1.5rem, 1.5rem 1.5rem 0 0);
-
-		background-image: linear-gradient(45deg, $color-secondary, $color-primary);
-		color: $color-grey-light-1 !important;
-
-		a {
-			color: $color-grey-light-1;
-			font-size: 1.75rem;
-			padding: .75rem 2.5rem;
-			text-decoration: none;
-			transition: all .5s ease;
-
-			border: 2px solid $color-grey-light-1;
-			border-radius: 1rem;
-
-			&:hover {
-				color: $color-primary;
-    		background-color: $color-grey-light-1;
-			}
-		}
+	&__form {
+		@include form;
+		@include form-group;
+		@include form-submit;
 	}
 
-	&__form {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		gap: 1rem;
+	&__login {
+		@include info-message(1.5rem 0 0 1.5rem, 1.5rem 1.5rem 0 0);
+		@include anchor-link;
 
-		border-radius: 1.5rem 0 0 1.5rem;
-		height: 85vh;
-		width: 40vw;
-
-		@media only screen and (max-width: $bp-medium) {
-			border-radius: 1.5rem 1.5rem 0 0;
-			height: 62.5vh;
-			width: 80vw;
-		}
-
-		&-group {
-			display: flex;
-			flex-direction: column;
-			gap: .35rem;
-			width: 75%;
-
-			&-label {
-				color: $color-grey-dark-2;
-				font-size: 1.6rem;
-			}
-
-			&-input {
-				background-color: lighten($color: $color-grey-dark-1, $amount: 62.5);
-				border: none;
-				border-radius: .5rem;
-				outline: none;
-				padding: 1.25rem 1.75rem;
-
-				&::placeholder {
-					color: lighten($color: $color-grey-dark-1, $amount: 20);
-					font-size: 1.4rem;
-				}
-			}
-		}
-
-		&-submit {
-			background-color: $color-primary;
-			border: none;
-			border-radius: 1rem;
-			color: $color-grey-light-1;
-			font-size: 1.6rem;
-			font-weight: 600;
-			padding: 1.25rem 2rem;
-			margin-top: 1rem;
-			text-transform: uppercase;
-			width: 75%;
-
-			transition: all .5s ease;
-
-			&:hover {
-				background-color: $color-secondary;
-				cursor: pointer;
-			}
-		}
+		background-image: linear-gradient(45deg, $color-secondary, $color-primary);
+		color: $color-grey-light-1;
 	}
 }
