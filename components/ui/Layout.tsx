@@ -231,8 +231,6 @@ const Layout = () => {
 									}
 								</section>
 							</nav>
-
-							<button className='sidebar__collapse-menu-logout'>Logout</button>
 						</div>
 					</div>
 				</div>

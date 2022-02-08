@@ -1,8 +1,42 @@
-.sidebar {
+//* Mixins
+@mixin scrollbar {
+	-webkit-box-shadow: inset 0 0 1.2rem $color-primary;
+	box-shadow: inset 0 0 1.2rem $color-primary;
+	border-radius: .5rem;
+}
+
+@mixin center-content {
+	display: block;
+	align-self: center;
+	margin: 0 auto;
+	width: 75%;
+}
+
+@mixin flex-center {
 	display: flex;
-	flex-direction: column;
-	align-items: center;
 	justify-content: center;
+	align-items: center;
+}
+
+@mixin button ($font-size, $padding, $height, $width) {
+	background-color: $color-primary;
+	color: $color-grey-light-1;
+	border: none;
+	border-radius: .5rem;
+	font-size: $font-size;
+	font-weight: 600;
+	text-align: center;
+	padding: $padding;
+	height: $height;
+	width: $width;
+
+	transition: all .5s ease;
+}
+
+//* Sidebar Component
+.sidebar {
+	@include flex-center;
+	flex-direction: column;
 
 	position: relative;
 	padding: 2rem 0;
@@ -11,9 +45,6 @@
 
 	@media (min-width: $bp-medium) {
 		display: block;
-		// overflow-y: auto;
-		// overflow: hidden;
-
 		position: fixed;
 		bottom: 0;
 		left: 0;
@@ -42,18 +73,8 @@
 			justify-content: flex-end;
 
 			button {
-				display: flex;
-				justify-content: center;
-				align-items: center;
-
-				background-color: $color-primary;
-				color: $color-grey-light-1;
-				border: none;
-				border-radius: .5rem;
-				font-size: 2.4rem;
-				text-align: center;
-				height: 4.5rem;
-				width: 4.5rem;
+				@include flex-center;
+				@include button(2.4rem, 0, 4.5rem, 4.5rem);
 
 				&:hover {
 					background-color: $color-secondary;
@@ -84,15 +105,13 @@
 	}
 
 	&__collapse {
-		flex: 1 1 0%;
 		align-items: center;
+		flex: 1 1 0%;
 
 		position: absolute;
 		left: 0;
 		right: 0;
 		top: 0;
-		// overflow-x: hidden;
-		// overflow-y: auto;
 		height: auto;
 		z-index: 10;
 
@@ -127,18 +146,8 @@
 				margin: 0 2rem;
 
 				button {
-					display: flex;
-					justify-content: center;
-					align-items: center;
-
-					background-color: $color-primary;
-					color: $color-grey-light-1;
-					border: none;
-					border-radius: .5rem;
-					font-size: 2.4rem;
-					text-align: center;
-					height: 4.5rem;
-					width: 4.5rem;
+					@include flex-center;
+					@include button(2.4rem, 0, 4.5rem, 4.5rem);
 
 					&:hover {
 						background-color: $color-secondary;
@@ -152,7 +161,6 @@
 			display: flex;
 			flex-direction: column;
 			flex: 1 1 0%;
-			justify-content: space-between;
 
 			@media (min-width: $bp-medium) {
 				margin-top: 1.5rem;
@@ -169,31 +177,11 @@
 				min-width: 100%;
 			}
 		}
-
-		&-menu-logout {
-			align-self: center;
-			background-color: $color-grey-light-1;
-			border: 2px solid $color-grey-dark-1;
-			border-radius: .5rem;
-			color: $color-grey-dark-1;
-			font-size: 1.6rem;
-			font-weight: 600;
-			padding: 1rem 0;
-
-			width: 50%;
-			transition: all .5s ease;
-
-			&:hover {
-				background-color: $color-grey-dark-1;
-				color: $color-grey-light-1;
-				cursor: pointer;
-			}
-		}
 	}
 
 	&__link {
-		display: block;
-		align-self: center;
+		@include center-content;
+
 		background-color: lighten($color: $color-secondary, $amount: 10%);
 		border: none;
 		border-radius: .5rem;
@@ -201,9 +189,7 @@
 		font-size: 1.6rem;
 		font-weight: 600;
 		padding: 1.25rem 0;
-		margin: 0 auto;
 		margin-bottom: 1.5rem;
-		width: 75%;
 
 		transition: all .5s ease;
 
@@ -218,19 +204,8 @@
 	}
 
 	&__create {
-		display: block;
-		align-self: center;
-		background-color: $color-primary;
-		border: none;
-		border-radius: .5rem;
-		color: $color-grey-light-1;
-		font-size: 1.6rem;
-		font-weight: 600;
-		padding: 1.25rem 0;
-		margin: 0 auto;
-		width: 75%;
-
-		transition: all .5s ease;
+		@include center-content;
+		@include button(2.2rem, 1.25rem 0, auto, 75%);
 
 		&:hover {
 			background-color: $color-secondary;
@@ -238,26 +213,24 @@
 		}
 
 		@media (min-width: $bp-medium) {
+			font-size: 2rem;
 			width: 100%;
 		}
 	}
 
 	&__projects {
-		display: block;
-		align-self: center;
+		@include center-content;
+
 		overflow-y: scroll;
-		margin: 0 auto;
 		margin-bottom: 4rem;
 		margin-top: 4rem;
 		padding: 0 1rem;
 		height: 50vh;
-		width: 75%;
 
 		@media (min-width: $bp-medium) {
 			cursor: pointer;
-			margin-bottom: 1rem;
 			margin-top: 1rem;
-			height: 60vh;
+			height: 65vh;
 			width: 100%;
 		}
 
@@ -266,19 +239,16 @@
 		}
 
 		&::-webkit-scrollbar-track {
-			-webkit-box-shadow: inset 0 0 1.2rem $color-primary;
-			box-shadow: inset 0 0 1.2rem $color-primary;
-			border-radius: .5rem;
+			@include scrollbar;
 		}
 
 		&::-webkit-scrollbar-thumb {
-			border-radius: .5rem;
-			-webkit-box-shadow: inset 0 0 1.2rem $color-primary;
-			box-shadow: inset 0 0 1.2rem $color-primary;
+			@include scrollbar;
 		}
 	}
 }
 
+//* Classes
 .hidden {
 	display: none;
 }
