@@ -29,3 +29,12 @@
 .mt-xl {
 	margin-top: 8rem;
 }
+
+.separator {
+	border-top: 2px solid $color-secondary;
+	margin: 2rem 20vw;
+
+	@media (min-width: $bp-medium) {
+		margin: 2rem 0;
+	}
+}
