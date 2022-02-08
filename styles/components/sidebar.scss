@@ -1,0 +1,152 @@
+.sidebar {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+
+	position: relative;
+	padding: 2rem 0;
+	background-color: #ffffff;
+	box-shadow: 0 1.5px 5px rgba(0, 0, 0, 0.3);
+
+	@media (min-width: $bp-medium) {
+		display: block;
+		overflow-y: auto;
+		overflow: hidden;
+
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		top: 0;
+		width: 22rem;
+	}
+
+	&__menu {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		justify-content: space-between;
+
+		padding: 0 1.5rem;
+		width: 100%;
+
+		@media (min-width: $bp-medium) {
+			flex-direction: column;
+			flex-wrap: nowrap;
+			align-items: stretch;
+			min-height: 100%;
+		}
+
+		&-toggler {
+			margin-left: 1rem;
+
+			@media (min-width: $bp-medium) {
+				display: none;
+			}
+		}
+	}
+
+	&__heading {
+		display: none;
+		color: lighten($color: $color-primary, $amount: 25);
+		font-size: 2rem;
+		line-height: 1.5rem;
+		font-weight: 600;
+		text-transform: uppercase;
+
+		@media (min-width: $bp-medium) {
+			display: block;
+			font-size: 3.2rem;
+			line-height: 2.5rem;
+			text-align: center;
+		}
+	}
+
+	&__collapse {
+		flex: 1 1 0%;
+		align-items: center;
+
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		overflow-x: hidden;
+		overflow-y: auto;
+		height: auto;
+		z-index: 10;
+
+		@media (min-width: $bp-medium) {
+			display: flex !important;
+			flex-direction: column;
+			align-items: stretch;
+
+			position: relative;
+			opacity: 1;
+		}
+
+		&-head {
+			display: block;
+			padding-bottom: 1rem;
+
+			@media (min-width: $bp-medium) {
+				display: none;
+				min-width: 100%;
+			}
+
+			&--title {
+				display: flex;
+				flex-wrap: wrap;
+				text-transform: uppercase;
+				width: 50%;
+			}
+
+			&--content {
+				display: flex;
+				justify-content: flex-end;
+				width: 50%;
+			}
+		}
+
+		&-menu {
+			display: flex;
+			flex-direction: column;
+			flex: 1 1 0%;
+			justify-content: space-between;
+
+			@media (min-width: $bp-medium) {
+				margin-top: 1.5rem;
+			}
+		}
+
+		&-menu-items {
+			display: flex;
+			flex-direction: column;
+
+			// list-style-type: none;
+			margin-top: 1rem;
+
+			@media (min-width: $bp-medium) {
+				margin-top: 1rem;
+				flex-direction: column;
+				min-width: 100%;
+			}
+		}
+
+		&-menu-logout {
+			padding: 1rem;
+			align-self: center;
+		}
+	}
+}
+
+.hidden {
+	display: none;
+}
+
+.menu-responsive {
+	padding-left: 0.5rem;
+	padding-right: 0.5rem;
+	padding-top: 0.75rem;
+	padding-bottom: 0.75rem;
+	background-color: #ffffff;
+	border-radius: 0.25rem;
+}

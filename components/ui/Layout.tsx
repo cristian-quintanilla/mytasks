@@ -1,44 +1,60 @@
-type LayoutProps = {
-	children: React.ReactNode
-}
+import { useState } from 'react';
 
-const Layout = ({ children }: LayoutProps) => {
+import { FaBars, FaTimes } from 'react-icons/fa';
+
+const Layout = () => {
+	const [ collapseShow, setCollapseShow ] = useState<string>('hidden');
+
 	return (
-		<div className='wrapper'>
-			<nav className='layout'>
-				<div className="custom-menu">
-					<button type="button" id="sidebarCollapse" className="btn btn-primary">
-	          <i className="fa fa-bars"></i>
-	          <span className="sr-only">Toggle Menu</span>
-	        </button>
-        </div>
-	  		<h1><a href="index.html" className="logo">Project Name</a></h1>
-        <ul className="list-unstyled components mb-5">
-          <li className="active">
-            <a href="#"><span className="fa fa-home mr-3"></span> Homepage</a>
-          </li>
-          <li>
-              <a href="#"><span className="fa fa-user mr-3"></span> Dashboard</a>
-          </li>
-          <li>
-            <a href="#"><span className="fa fa-sticky-note mr-3"></span> Friends</a>
-          </li>
-          <li>
-            <a href="#"><span className="fa fa-sticky-note mr-3"></span> Subcription</a>
-          </li>
-          <li>
-            <a href="#"><span className="fa fa-paper-plane mr-3"></span> Settings</a>
-          </li>
-          <li>
-            <a href="#"><span className="fa fa-paper-plane mr-3"></span> Information</a>
-          </li>
-        </ul>
-			</nav>
+		<>
+			<nav className='sidebar'>
+				<div className='sidebar__menu'>
+					{/* Toggler */}
+					<div className='sidebar__menu-toggler'>
+						<button
+							onClick={ () => setCollapseShow('menu-responsive') }
+						>
+							<FaBars />
+						</button>
+					</div>
 
-			<section>
-				{ children }
-			</section>
-		</div>
+					{/* Brand */}
+					<h1 className='sidebar__heading mb-sm'>
+						My_Tasks
+					</h1>
+
+					{/* Collapse:  */}
+					<div className={`sidebar__collapse ${ collapseShow }`}>
+						<div className='sidebar__collapse-head'>
+							<div className='sidebar__collapse-head--title'>
+								<h1 className='h3 mb-sm'>
+									My_Tasks
+								</h1>
+
+								<div className='sidebar__collapse-head--content'>
+								 <button onClick={ () => setCollapseShow('hidden') }>
+									 <FaTimes />
+								 </button>
+								</div>
+							</div>
+						</div>
+
+						{/* MENU */}
+						<div className='sidebar__collapse-menu'>
+							<nav className='sidebar__colapse-menu-items'>
+								<div>links</div>
+								<div>links</div>
+								<div>links</div>
+							</nav>
+
+							<div className='sidebar__collapse-menu-logout'>
+								<button>Logout</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</nav>
+		</>
 	);
 }
 

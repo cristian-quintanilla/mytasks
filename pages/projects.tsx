@@ -9,9 +9,11 @@ const ProjectsPage = () => {
 				<title>MyTasks - Projects</title>
 			</Head>
 
-			<Layout>
+			<Layout />
+
+			<div className='content'>
 				<h1>Projects</h1>
-			</Layout>
+			</div>
 		</>
 	);
 }
