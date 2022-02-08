@@ -34,7 +34,7 @@
 	border-top: 2px solid $color-secondary;
 	margin: 2rem 20vw;
 
-	@media (min-width: $bp-medium) {
+	@media only screen and (min-width: $bp-medium) {
 		margin: 2rem 0;
 	}
 }

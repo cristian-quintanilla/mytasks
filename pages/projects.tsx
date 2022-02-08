@@ -1,19 +1,16 @@
-import Head from 'next/head';
-
 import Layout from '../components/ui/Layout';
+import Header from '../components/ui/Header';
 
 const ProjectsPage = () => {
 	return (
 		<>
-			<Head>
-				<title>MyTasks - Projects</title>
-			</Head>
-
 			<Layout />
 
-			<div className='content'>
+			<main className='content'>
+				<Header />
+
 				<h1>Projects</h1>
-			</div>
+			</main>
 		</>
 	);
 }

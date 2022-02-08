@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useState } from 'react';
+import Head from 'next/head';
 import { FaBars, FaTimes } from 'react-icons/fa';
 
 import SidebarLink from './SidebarLink';
@@ -174,8 +175,12 @@ const Layout = () => {
 
 	return (
 		<>
-			<nav className='sidebar'>
-				<div className='sidebar__menu'>
+			<Head>
+				<title>MyTasks</title>
+			</Head>
+
+			<aside className='sidebar'>
+				<nav className='sidebar__menu'>
 					{/* Toggler */}
 					<div className='sidebar__menu-toggler'>
 						<button onClick={ () => setCollapseShow('menu-responsive') }>
@@ -233,8 +238,8 @@ const Layout = () => {
 							</nav>
 						</div>
 					</div>
-				</div>
-			</nav>
+				</nav>
+			</aside>
 		</>
 	);
 }
