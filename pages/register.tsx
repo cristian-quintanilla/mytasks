@@ -3,21 +3,30 @@ import Head from 'next/head';
 import Link from 'next/link';
 
 import InputForm from '../components/auth/InputForm';
+
+import validateRegister from '../validation/validateRegister';
 import { useForm } from '../hooks/useForm';
 
+const INITIAL_STATE = {
+	name: '',
+	email: '',
+	password: ''
+}
+
 const LoginPage = () => {
-	const { formulario, handleInputChange } = useForm({
-		name: '',
-		email: '',
-		password: '',
-	});
+	const {
+		values,
+		errors,
+		handleBlur,
+		handleInputChange,
+		onSubmit
+	} = useForm(INITIAL_STATE, validateRegister, register);
 
-	const { name, email, password } = formulario;
+	const { name, email, password } = values;
 
-	//* Submit
-	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-		event.preventDefault();
-
+	//* Register
+	async function register() {
+		console.log('Registrando...');
 		console.log({ name, email, password });
 	}
 
@@ -40,7 +49,7 @@ const LoginPage = () => {
 						</Link>
 					</section>
 
-					<form className='register__form' onSubmit={ handleSubmit }>
+					<form className='register__form' onSubmit={ onSubmit }>
 						<h1 className='h3 uppercase'>Register</h1>
 
 						<p className='text-dark'>Create an account</p>
@@ -53,8 +62,15 @@ const LoginPage = () => {
 								placeholder='Name'
 								type='text'
 								value={ name }
+								onBlur={ handleBlur }
 								onChange={ handleInputChange }
 							/>
+
+							{
+								errors.name && (
+									<p>{ errors.name }</p>
+								)
+							}
 						</section>
 
 						<section className='login__form-group'>
@@ -65,8 +81,15 @@ const LoginPage = () => {
 								placeholder='Email'
 								type='email'
 								value={ email }
+								onBlur={ handleBlur }
 								onChange={ handleInputChange }
 							/>
+
+							{
+								errors.email && (
+									<p>{ errors.email }</p>
+								)
+							}
 						</section>
 
 						<section className='login__form-group'>
@@ -77,8 +100,15 @@ const LoginPage = () => {
 								placeholder='Password'
 								type='password'
 								value={ password }
+								onBlur={ handleBlur }
 								onChange={ handleInputChange }
 							/>
+
+							{
+								errors.password && (
+									<p>{ errors.password }</p>
+								)
+							}
 						</section>
 
 						<button
