@@ -4,24 +4,24 @@ import { FaPlus } from 'react-icons/fa';
 import { useForm } from '../../hooks/useForm';
 
 const NewProject = () => {
-	const { formulario, handleInputChange, reset } = useForm({
-		title: '',
-	});
+	// const { formulario, handleInputChange, reset } = useForm({
+	// 	title: '',
+	// });
 
-	const { title } = formulario;
+	// const { title } = formulario;
 
-	//* Create Project
-	const createProject = (event: React.FormEvent<HTMLFormElement>) => {
-		event.preventDefault();
+	// //* Create Project
+	// const createProject = (event: React.FormEvent<HTMLFormElement>) => {
+	// 	event.preventDefault();
 
-		console.log(title);
-		reset();
-	}
+	// 	console.log(title);
+	// 	reset();
+	// }
 
 	return (
 		<form
 			className='new-project'
-			onSubmit={ createProject }
+			// onSubmit={ createProject }
 		>
 			<input
 				type='text'
@@ -29,8 +29,8 @@ const NewProject = () => {
 				className='new-project__input'
 				placeholder='Project Title'
 				autoComplete='off'
-				value={ title }
-				onChange={ handleInputChange }
+				// value={ title }
+				// onChange={ handleInputChange }
 			/>
 
 			<button

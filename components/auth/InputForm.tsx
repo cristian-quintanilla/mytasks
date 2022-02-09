@@ -5,10 +5,11 @@ interface Props {
 	placeholder: string;
 	type: 'text' | 'email' | 'password';
 	value: string | undefined;
+	onBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
 	onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const InputForm = ({ id, label, name, placeholder, type, value, onChange }: Props): JSX.Element => (
+const InputForm = ({ id, label, name, placeholder, type, value, onBlur, onChange }: Props): JSX.Element => (
 	<>
 		<label htmlFor={ id } className='login__form-group-label'>
 			{ label }
@@ -22,6 +23,7 @@ const InputForm = ({ id, label, name, placeholder, type, value, onChange }: Prop
 			name={ name }
 			placeholder={ placeholder }
 			value={ value }
+			onBlur={ onBlur }
 			onChange={ onChange }
 		/>
 	</>
