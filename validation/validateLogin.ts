@@ -16,7 +16,7 @@ export default function validateLogin(values: Values) {
 	// Validate Password
 	if (!values.password) {
 		errores.password = 'Password is required.';
-	} else if (values.password.length < 6) {
+	} else if (values.password.trim().length < 6) {
 		errores.password = 'Password must be at least 6 characters.';
 	}
 

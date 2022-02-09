@@ -10,7 +10,7 @@ export default function validateRegister(values: Values) {
 	// Validate Name
 	if (!values.name) {
 		errores.name = 'Name is required.';
-	} else if (values.name.length < 3) {
+	} else if (values.name.trim().length < 3) {
 		errores.name = 'Name must be at least 3 characters.';
 	}
 
@@ -24,7 +24,7 @@ export default function validateRegister(values: Values) {
 	// Validate Password
 	if (!values.password) {
 		errores.password = 'Password is required.';
-	} else if (values.password.length < 6) {
+	} else if (values.password.trim().length < 6) {
 		errores.password = 'Password must be at least 6 characters.';
 	}
 

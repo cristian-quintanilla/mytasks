@@ -39,4 +39,10 @@
 		padding: .75rem 0;
 		cursor: pointer;
 	}
+
+	&__button:disabled, &__button[disabled] {
+		border: 2px solid darken($color: $color-grey-light-2, $amount: 10%);
+		background-color: $color-grey-light-1;
+		color: darken($color: $color-grey-light-2, $amount: 10%);
+	}
 }
