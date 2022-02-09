@@ -1,38 +1,24 @@
 /* eslint-disable react/no-unescaped-entities */
 import Head from 'next/head';
 import Link from 'next/link';
-import { useState } from 'react';
 
 import InputForm from '../components/auth/InputForm';
-
-interface FormData {
-	name: string;
-	email: string;
-	password: string;
-}
+import { useForm } from '../hooks/useForm';
 
 const LoginPage = () => {
-	const [ formulario, setFormulario ] = useState<FormData>({
+	const { formulario, handleInputChange } = useForm({
 		name: '',
 		email: '',
 		password: '',
 	});
 
-	//* Input Change
-	const handleInputChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-		const { name, value } = target;
-
-		setFormulario({
-			...formulario,
-			[name]: value
-		});
-	}
+	const { name, email, password } = formulario;
 
 	//* Submit
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 
-		console.log(formulario);
+		console.log({ name, email, password });
 	}
 
 	return (
@@ -66,7 +52,7 @@ const LoginPage = () => {
 								name='name'
 								placeholder='Name'
 								type='text'
-								value={ formulario.name }
+								value={ name }
 								onChange={ handleInputChange }
 							/>
 						</section>
@@ -78,7 +64,7 @@ const LoginPage = () => {
 								name='email'
 								placeholder='Email'
 								type='email'
-								value={ formulario.email }
+								value={ email }
 								onChange={ handleInputChange }
 							/>
 						</section>
@@ -90,7 +76,7 @@ const LoginPage = () => {
 								name='password'
 								placeholder='Password'
 								type='password'
-								value={ formulario.password }
+								value={ password }
 								onChange={ handleInputChange }
 							/>
 						</section>
