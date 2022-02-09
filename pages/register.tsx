@@ -2,6 +2,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 
+import AlertError from '../components/ui/AlertError';
 import InputForm from '../components/auth/InputForm';
 
 import validateRegister from '../validation/validateRegister';
@@ -52,8 +53,6 @@ const LoginPage = () => {
 					<form className='register__form' onSubmit={ onSubmit }>
 						<h1 className='h3 uppercase'>Register</h1>
 
-						<p className='text-dark'>Create an account</p>
-
 						<section className='register__form-group'>
 							<InputForm
 								id='name'
@@ -66,11 +65,7 @@ const LoginPage = () => {
 								onChange={ handleInputChange }
 							/>
 
-							{
-								errors.name && (
-									<p>{ errors.name }</p>
-								)
-							}
+							{ errors.name && <AlertError text={ errors.name } /> }
 						</section>
 
 						<section className='login__form-group'>
@@ -85,11 +80,7 @@ const LoginPage = () => {
 								onChange={ handleInputChange }
 							/>
 
-							{
-								errors.email && (
-									<p>{ errors.email }</p>
-								)
-							}
+							{ errors.email && <AlertError text={ errors.email } /> }
 						</section>
 
 						<section className='login__form-group'>
@@ -104,11 +95,7 @@ const LoginPage = () => {
 								onChange={ handleInputChange }
 							/>
 
-							{
-								errors.password && (
-									<p>{ errors.password }</p>
-								)
-							}
+							{ errors.password && <AlertError text={ errors.password } /> }
 						</section>
 
 						<button

@@ -1,9 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
-// import { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-// import Router from 'next/router';
 
+import AlertError from '../components/ui/AlertError';
 import InputForm from '../components/auth/InputForm';
 import Social from '../components/auth/Social';
 
@@ -16,20 +15,18 @@ const INITIAL_STATE = {
 }
 
 const LoginPage = () => {
-	// const [ errorMessage, setErrorMessage ] = useState<boolean>(false);
-
 	const {
 		values,
 		errors,
 		handleBlur,
 		handleInputChange,
 		onSubmit
-	} = useForm(INITIAL_STATE, validateLogin, iniciarSesion);
+	} = useForm(INITIAL_STATE, validateLogin, login);
 
 	const { email, password } = values;
 
 	//* Login
-	async function iniciarSesion() {
+	async function login() {
 		console.log('Iniciando sesión...');
 		console.log({ email, password });
 	}
@@ -46,7 +43,7 @@ const LoginPage = () => {
 						<h1 className='h3 uppercase'>Login</h1>
 
 						<Social />
-						<p className='text-dark mb-sm'>or use your account</p>
+						<p className='text-dark'>or use your account</p>
 
 						<section className='login__form-group'>
 							<InputForm
@@ -60,11 +57,7 @@ const LoginPage = () => {
 								onChange={ handleInputChange }
 							/>
 
-							{
-								errors.email && (
-									<p>{ errors.email }</p>
-								)
-							}
+							{ errors.email && <AlertError text={ errors.email } /> }
 						</section>
 
 						<section className='login__form-group'>
@@ -78,11 +71,8 @@ const LoginPage = () => {
 								onBlur={ handleBlur }
 								onChange={ handleInputChange }
 							/>
-							{
-								errors.password && (
-									<p>{ errors.password }</p>
-								)
-							}
+
+							{ errors.password && <AlertError text={ errors.password } /> }
 						</section>
 
 						<button
