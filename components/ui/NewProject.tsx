@@ -5,7 +5,7 @@ const NewProject = () => {
 	const [ projectTitle, setProjectTitle ] = React.useState<string>('');
 
 	//* Create Project
-	const createProject = (event: React.SyntheticEvent) => {
+	const createProject = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 
 		console.log('Create Project', projectTitle);
