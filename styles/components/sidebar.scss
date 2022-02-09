@@ -43,7 +43,7 @@
 	background-color: #ffffff;
 	box-shadow: 0 1.5px 5px rgba(0, 0, 0, 0.3);
 
-	@media only screen and (min-width: $bp-medium) {
+	@media (min-width: $bp-medium) {
 		display: block;
 		position: fixed;
 		bottom: 0;
@@ -61,7 +61,7 @@
 		padding: 0 1.5rem;
 		width: 100%;
 
-		@media only screen and (min-width: $bp-medium) {
+		@media (min-width: $bp-medium) {
 			flex-direction: column;
 			flex-wrap: nowrap;
 			align-items: stretch;
@@ -82,7 +82,7 @@
 				}
 			}
 
-			@media only screen and (min-width: $bp-medium) {
+			@media (min-width: $bp-medium) {
 				display: none;
 			}
 		}
@@ -96,7 +96,7 @@
 		font-weight: 600;
 		text-transform: uppercase;
 
-		@media only screen and (min-width: $bp-medium) {
+		@media (min-width: $bp-medium) {
 			display: block;
 			font-size: 3.2rem;
 			line-height: 2.5rem;
@@ -115,7 +115,7 @@
 		height: auto;
 		z-index: 10;
 
-		@media only screen and (min-width: $bp-medium) {
+		@media (min-width: $bp-medium) {
 			display: flex !important;
 			flex-direction: column;
 			align-items: stretch;
@@ -128,7 +128,7 @@
 			display: block;
 			margin-bottom: 2rem;
 
-			@media only screen and (min-width: $bp-medium) {
+			@media (min-width: $bp-medium) {
 				display: none;
 				min-width: 100%;
 			}
@@ -162,7 +162,7 @@
 			flex-direction: column;
 			flex: 1 1 0%;
 
-			@media only screen and (min-width: $bp-medium) {
+			@media (min-width: $bp-medium) {
 				margin-top: 1.5rem;
 			}
 		}
@@ -171,7 +171,7 @@
 			display: flex;
 			flex-direction: column;
 
-			@media only screen and (min-width: $bp-medium) {
+			@media (min-width: $bp-medium) {
 				margin-top: 1rem;
 				flex-direction: column;
 				min-width: 100%;
@@ -198,21 +198,21 @@
 			cursor: pointer;
 		}
 
-		@media only screen and (min-width: $bp-medium) {
+		@media (min-width: $bp-medium) {
 			width: 100%;
 		}
 	}
 
 	&__create {
 		@include center-content;
-		@include button(2.2rem, 1.25rem 0, auto, 75%);
+		@include button(2.1rem, 1.2rem 0, auto, 75%);
 
 		&:hover {
 			background-color: $color-secondary;
 			cursor: pointer;
 		}
 
-		@media only screen and (min-width: $bp-medium) {
+		@media (min-width: $bp-medium) {
 			font-size: 2rem;
 			width: 100%;
 		}
@@ -227,7 +227,7 @@
 		padding: 0 1rem;
 		height: 50vh;
 
-		@media only screen and (min-width: $bp-medium) {
+		@media (min-width: $bp-medium) {
 			cursor: pointer;
 			margin-top: 1rem;
 			height: 65vh;

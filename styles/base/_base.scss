@@ -12,10 +12,10 @@
 
 html {
 	box-sizing: border-box;
-	font-size: 50%;
+	font-size: 62.5%;
 
-	@media only screen and (min-width: $bp-medium) {
-		font-size: 62.5%;
+	@media (max-width: $bp-medium) {
+		font-size: 50%;
 	}
 }
 

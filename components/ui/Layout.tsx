@@ -1,8 +1,9 @@
 /* eslint-disable react/no-unescaped-entities */
-import { useState } from 'react';
 import Head from 'next/head';
+import { useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 
+import NewProject from './NewProject';
 import SidebarLink from './SidebarLink';
 
 const projects = [
@@ -172,6 +173,12 @@ const projects = [
 
 const Layout = () => {
 	const [ collapseShow, setCollapseShow ] = useState<string>('hidden');
+	const [ newProjectForm, setNewProjectForm ] = useState<boolean>(false);
+
+	//* Show/hide form for new project
+	const toggleNewProjectForm = () => {
+		setNewProjectForm(!newProjectForm);
+	};
 
 	return (
 		<>
@@ -210,9 +217,20 @@ const Layout = () => {
 						{/* MENU */}
 						<div className='sidebar__collapse-menu'>
 							<nav className='sidebar__colapse-menu-items'>
-								<button className='sidebar__create'>
-									Create Project
+								<button
+									className='sidebar__create'
+									onClick={ toggleNewProjectForm }
+								>
+									{
+										!!newProjectForm
+										? 'Close'
+										: 'Create Project'
+									}
 								</button>
+
+								{
+									!!newProjectForm && <NewProject />
+								}
 
 								<hr className='separator' />
 
