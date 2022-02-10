@@ -1,0 +1,38 @@
+.tasks {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	padding: 1rem 2rem;
+
+	&__title {
+		font-family: $font-heading;
+		font-size: 3rem;
+		font-weight: 400;
+		margin-bottom: 2rem;
+	}
+
+	&__delete {
+		align-self: flex-start;
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+
+		background-color: #F44336;
+		border-radius: .5rem;
+		border: none;
+		color: $color-grey-light-1;
+		font-size: 1.6rem;
+		font-weight: 400;
+		outline: none;
+		padding: 1rem 1rem;
+		margin-left: 2rem;
+		margin-top: 1rem;
+		transition: all .2s ease-in-out;
+
+		&:hover {
+			background-color: #D32F2F;
+			cursor: pointer;
+		}
+	}
+}

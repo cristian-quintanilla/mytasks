@@ -1,0 +1,99 @@
+//* Mixins
+@mixin center-content {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+@mixin task-status($complete) {
+	border-radius: .75rem;
+	font-size: 1.4rem;
+	font-weight: 500;
+	padding: 0.45rem 1.5rem;
+	text-transform: uppercase;
+	cursor: pointer;
+	transition: all .2s ease-in-out;
+
+	@if $complete {
+		border: 2px solid #4AA96C;
+		color: #4AA96C;
+
+		&:hover {
+			background: #4AA96C;
+			color: $color-grey-light-1;
+		}
+	} @else {
+		border: 2px solid #F55C47;
+		color: #F55C47;
+
+		&:hover {
+			background: #F55C47;
+			color: $color-grey-light-1;
+		}
+	}
+}
+
+@mixin button($edit) {
+	border: none;
+	font-size: 1.4rem;
+	font-weight: 600;
+	padding: 0.75rem 1.5rem;
+	outline: none;
+	text-transform: uppercase;
+	cursor: pointer;
+	transition: all .2s ease-in-out;
+
+	@if $edit {
+		background-color: $color-primary;
+		color: $color-grey-light-1;
+	} @else {
+		background-color: $color-secondary;
+		color: $color-grey-light-1;
+	}
+}
+
+//* Styles
+.task {
+	@include center-content;
+
+	background-color: lighten($color: $color-grey-light-1, $amount: 7%);
+	box-shadow: 5px 5px 10px -5px rgba(0, 0, 0, 0.50);
+	border-radius: .7rem;
+	list-style: none;
+	margin-bottom: 2rem;
+	padding: 1.25rem 2rem;
+	width: 80%;
+
+	transition: all .2s ease-in-out;
+
+	&:hover {
+		background-color: lighten($color: $color-grey-light-1, $amount: 5%);
+	}
+
+	&__title {
+		font-size: 1.6em;
+		font-weight: 200;
+		text-transform: uppercase;
+	}
+
+	&__options {
+		@include center-content;
+		gap: 1rem;
+
+		:nth-child(2) {
+			@include button(true);
+		}
+
+		:nth-child(3) {
+			@include button(false);
+		}
+	}
+
+	&__complete {
+		@include task-status(true);
+	}
+
+	&__incomplete {
+		@include task-status(false);
+	}
+}

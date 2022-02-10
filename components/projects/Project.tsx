@@ -8,14 +8,12 @@ const project = {
 		{
 			id: '1',
 			title: 'Task 1',
-			description: 'This is a task description',
 			done: false,
 		},
 		{
 			id: '2',
 			title: 'Task 2',
-			description: 'This is a task description',
-			done: false,
+			done: true,
 		},
 	]
 };
