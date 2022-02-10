@@ -1,17 +1,31 @@
-type SidebarLinkProps = {
-	text: string;
-}
+import { useAppDispatch } from '../../store/hooks';
+import { setActiveProject } from '../../reducers/projectsReducer';
+import { ProjectInterface } from '../../interfaces';
 
-const SidebarLink = ({ text }: SidebarLinkProps) => (
-	<button className='sidebar__link'>
-		{
-			text.length > 20 ? (
-				<>
-					{ text.substring(0, 20) }...
-				</>
-			)	: ( text )
-		}
-	</button>
-);
+const SidebarLink = ({ id, title, tasks }: ProjectInterface) => {
+	const dispatch = useAppDispatch();
+
+	console.log({ id, title, tasks })
+
+	//* Set active project
+	const setActiveProjectHandler = (project: ProjectInterface) => {
+		dispatch(setActiveProject(project));
+	}
+
+	return (
+		<button
+			className='sidebar__link'
+			onClick={ () => setActiveProjectHandler({ id, title, tasks }) }
+		>
+			{
+				title.length > 20 ? (
+					<>
+						{ title.substring(0, 20) }...
+					</>
+				)	: ( title )
+			}
+		</button>
+	);
+}
 
 export default SidebarLink;

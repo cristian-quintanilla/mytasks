@@ -1,10 +1,12 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 
 import uiReducer from '../reducers/uiReducer';
+import projectsReducer from '../reducers/projectsReducer';
 
 export const store = configureStore({
   reducer: {
     ui: uiReducer,
+    projects: projectsReducer,
   },
 });
 

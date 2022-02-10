@@ -8,175 +8,12 @@ import SidebarLink from './SidebarLink';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { openCloseForm, selectNewProject } from '../../reducers/uiReducer';
-
-const projects = [
-	{
-		id: 'project-1',
-		title: 'Lorem ipsum dolor sit amet consectetur adipisicing.',
-		tasks: [
-			{
-				id: '1',
-				title: 'Task 1',
-				description: 'This is a task description',
-				done: false,
-			},
-			{
-				id: '2',
-				title: 'Task 2',
-				description: 'This is a task description',
-				done: false,
-			},
-		]
-	},
-	{
-		id: 'project-2',
-		title: 'Project 2',
-		tasks: [
-			{
-				id: '1',
-				title: 'Task 1',
-				description: 'This is a task description',
-				done: false,
-			},
-			{
-				id: '2',
-				title: 'Task 2',
-				description: 'This is a task description',
-				done: false,
-			},
-		]
-	},
-	{
-		id: 'project-3',
-		title: 'Project 3',
-		tasks: [
-			{
-				id: '1',
-				title: 'Task 1',
-				description: 'This is a task description',
-				done: false,
-			},
-			{
-				id: '2',
-				title: 'Task 2',
-				description: 'This is a task description',
-				done: false,
-			},
-		]
-	},
-	{
-		id: 'project-4',
-		title: 'Lorem ipsum dolor sit amet consectetur adipisicing.',
-		tasks: [
-			{
-				id: '1',
-				title: 'Task 1',
-				description: 'This is a task description',
-				done: false,
-			},
-			{
-				id: '2',
-				title: 'Task 2',
-				description: 'This is a task description',
-				done: false,
-			},
-		]
-	},
-	{
-		id: 'project-5',
-		title: 'Project 2',
-		tasks: [
-			{
-				id: '1',
-				title: 'Task 1',
-				description: 'This is a task description',
-				done: false,
-			},
-			{
-				id: '2',
-				title: 'Task 2',
-				description: 'This is a task description',
-				done: false,
-			},
-		]
-	},
-	{
-		id: 'project-6',
-		title: 'Project 3',
-		tasks: [
-			{
-				id: '1',
-				title: 'Task 1',
-				description: 'This is a task description',
-				done: false,
-			},
-			{
-				id: '2',
-				title: 'Task 2',
-				description: 'This is a task description',
-				done: false,
-			},
-		]
-	},
-	{
-		id: 'project-7',
-		title: 'Lorem ipsum dolor sit amet consectetur adipisicing.',
-		tasks: [
-			{
-				id: '1',
-				title: 'Task 1',
-				description: 'This is a task description',
-				done: false,
-			},
-			{
-				id: '2',
-				title: 'Task 2',
-				description: 'This is a task description',
-				done: false,
-			},
-		]
-	},
-	{
-		id: 'project-8',
-		title: 'Project 2',
-		tasks: [
-			{
-				id: '1',
-				title: 'Task 1',
-				description: 'This is a task description',
-				done: false,
-			},
-			{
-				id: '2',
-				title: 'Task 2',
-				description: 'This is a task description',
-				done: false,
-			},
-		]
-	},
-	{
-		id: 'project-9',
-		title: 'Project 3',
-		tasks: [
-			{
-				id: '1',
-				title: 'Task 1',
-				description: 'This is a task description',
-				done: false,
-			},
-			{
-				id: '2',
-				title: 'Task 2',
-				description: 'This is a task description',
-				done: false,
-			},
-		]
-	}
-];
+import { getProjects } from '../../reducers/projectsReducer';
 
 const Layout = () => {
 	const dispatch = useAppDispatch();
 	const form = useAppSelector(selectNewProject);
+	const projects = useAppSelector(getProjects);
 
 	const [ collapseShow, setCollapseShow ] = useState<string>('hidden');
 
@@ -248,7 +85,7 @@ const Layout = () => {
 													projects.map(project => (
 														<SidebarLink
 															key={ project.id }
-															text={ project.title }
+															{ ...project }
 														/>
 													))
 												}
