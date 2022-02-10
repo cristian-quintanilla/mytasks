@@ -1,5 +1,6 @@
 import Layout from '../components/ui/Layout';
 import Header from '../components/ui/Header';
+import Project from '../components/projects/Project';
 
 const ProjectsPage = () => {
 	return (
@@ -9,7 +10,7 @@ const ProjectsPage = () => {
 			<main className='content'>
 				<Header />
 
-				<h1>Projects</h1>
+				<Project />
 			</main>
 		</>
 	);
