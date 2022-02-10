@@ -25,7 +25,7 @@ const NewProject = () => {
 	const { title } = values;
 
 	//* Create Project
-	async function create() {
+	function create() {
 		const newProject: ProjectInterface = {
 			id: Math.random().toString(),
 			title: title || '',

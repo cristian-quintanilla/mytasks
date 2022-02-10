@@ -1,10 +1,19 @@
 import { FaTrashAlt } from 'react-icons/fa';
 
 import Task from './Task';
+
 import { ProjectInterface } from '../../interfaces';
-import { useAppSelector } from '../../store/hooks';
+import { useAppDispatch } from '../../store/hooks';
+import { removeProject } from '../../reducers/projectsReducer';
 
 const TasksList = (project: ProjectInterface) => {
+	const dispatch = useAppDispatch();
+
+	//* Remove project
+	function remove() {
+		dispatch( removeProject(project.id) );
+	}
+
 	return (
 		<section className='tasks'>
 			<h2 className='tasks__title'>Project: { project.title }</h2>
@@ -22,7 +31,7 @@ const TasksList = (project: ProjectInterface) => {
 				)
 			}
 
-			<button className='tasks__delete'>
+			<button className='tasks__delete' onClick={ remove }>
 				Delete Project
 				<FaTrashAlt />
 			</button>

@@ -55,17 +55,21 @@ export const projectsSlice = createSlice({
 	name: 'projects',
 	initialState,
 	reducers: {
+		addProject: (state, action: PayloadAction<ProjectInterface>) => {
+			state.projects = [ action.payload, ...state.projects ];
+		},
 		setActiveProject: (state, action: PayloadAction<string>) => {
       const activeProject = state.projects.find(project => project.id === action.payload);
 			state.activeProject = activeProject ?? null;
     },
-		addProject: (state, action: PayloadAction<ProjectInterface>) => {
-			state.projects = [ action.payload, ...state.projects ];
+		removeProject: (state, action: PayloadAction<string>) => {
+			state.projects = state.projects.filter(project => project.id !== action.payload);
+			state.activeProject = null;
 		}
 	},
 });
 
-export const { addProject, setActiveProject } = projectsSlice.actions;
+export const { addProject, setActiveProject, removeProject } = projectsSlice.actions;
 
 export const getProjects = (state: RootState) => state.projects.projects;
 export const getActiveProject = (state: RootState) => state.projects.activeProject;
