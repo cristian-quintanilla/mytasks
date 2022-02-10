@@ -5,8 +5,6 @@ import { ProjectInterface } from '../../interfaces';
 const SidebarLink = ({ id, title, tasks }: ProjectInterface) => {
 	const dispatch = useAppDispatch();
 
-	console.log({ id, title, tasks })
-
 	//* Set active project
 	const setActiveProjectHandler = (project: ProjectInterface) => {
 		dispatch(setActiveProject(project));

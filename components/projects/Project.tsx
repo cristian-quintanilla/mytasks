@@ -1,28 +1,26 @@
 import AddEditTask from './AddEditTask';
 import TasksList from './TasksList';
 
-const project = {
-	id: 'project-1',
-	title: 'Lorem ipsum dolor sit.',
-	tasks: [
-		{
-			id: '1',
-			title: 'Task 1',
-			done: false,
-		},
-		{
-			id: '2',
-			title: 'Task 2',
-			done: true,
-		},
-	]
-};
+import { useAppSelector } from '../../store/hooks';
+import { getActiveProject } from '../../reducers/projectsReducer';
 
 const Project = () => {
-  return (
+	const activeProject = useAppSelector(getActiveProject);
+
+	return (
     <>
-      <AddEditTask />
-      <TasksList { ...project } />
+			{
+				activeProject ? (
+					<>
+						<AddEditTask />
+      			<TasksList { ...activeProject } />
+					</>
+				) : (
+					<section className='tasks'>
+						<h2 className='tasks__title'>No Project. Please select one.</h2>
+					</section>
+				)
+			}
     </>
   );
 }

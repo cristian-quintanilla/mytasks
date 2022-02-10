@@ -10,7 +10,7 @@ const TasksList = (project: ProjectInterface) => {
 
 			{
 				project.tasks?.length === 0 ? (
-					<p>No tasks</p>
+					<p className='tasks__no-tasks'>No tasks. Start creating one.</p>
 				) : (
 					project.tasks?.map(task => (
 						<Task
