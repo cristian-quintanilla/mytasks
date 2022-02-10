@@ -6,6 +6,9 @@ import { FaBars, FaTimes } from 'react-icons/fa';
 import NewProject from './NewProject';
 import SidebarLink from './SidebarLink';
 
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { openCloseForm, selectNewProject } from '../../reducers/uiReducer';
+
 const projects = [
 	{
 		id: 'project-1',
@@ -172,12 +175,14 @@ const projects = [
 ];
 
 const Layout = () => {
+	const dispatch = useAppDispatch();
+	const form = useAppSelector(selectNewProject);
+
 	const [ collapseShow, setCollapseShow ] = useState<string>('hidden');
-	const [ newProjectForm, setNewProjectForm ] = useState<boolean>(false);
 
 	//* Show/hide form for new project
 	const toggleNewProjectForm = () => {
-		setNewProjectForm(!newProjectForm);
+		dispatch(openCloseForm());
 	};
 
 	return (
@@ -222,14 +227,14 @@ const Layout = () => {
 									onClick={ toggleNewProjectForm }
 								>
 									{
-										!!newProjectForm
+										!!form
 										? 'Close'
 										: 'Create Project'
 									}
 								</button>
 
 								{
-									!!newProjectForm && <NewProject />
+									!!form && <NewProject />
 								}
 
 								<hr className='separator' />

@@ -14,17 +14,14 @@ export const uiSlice = createSlice({
 	name: 'ui',
 	initialState,
 	reducers: {
-		open: state => {
-			state.open = true;
-		},
-		close: state => {
-			state.open = false;
+		openCloseForm: state => {
+			state.open = !state.open;
 		},
 	},
 });
 
-export const { open, close } = uiSlice.actions;
+export const { openCloseForm } = uiSlice.actions;
 
-export const selectOpen = (state: RootState) => state.ui.open;
+export const selectNewProject = (state: RootState) => state.ui.open;
 
 export default uiSlice.reducer;
