@@ -1,0 +1,51 @@
+.form-task {
+	padding: 2rem 3rem;
+	background-color: $color-primary;
+
+	&__title {
+		color: $color-grey-light-1;
+		font-size: 3.4rem;
+		font-weight: 400;
+		letter-spacing: .25rem;
+		margin-bottom: 1rem;
+		text-align: center;
+		text-transform: uppercase;
+	}
+
+	&__form {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1rem;
+
+		&-input {
+			background-color: $color-grey-light-1;
+			border: none;
+			border-radius: .5rem;
+			color: $color-grey-dark-1;
+
+			font-size: 1.5rem;
+			outline: none;
+			padding: 1.15rem 1.75rem;
+			width: 50%;
+		}
+
+		&-button {
+			background-color: lighten($color: $color-secondary, $amount: 10%);
+			border: none;
+			border-radius: .5rem;
+			color: $color-grey-light-1;
+			font-size: 1.6rem;
+			font-weight: 400;
+			padding: 1.25rem 0;
+			width: 50%;
+
+			transition: all .5s ease;
+
+			&:hover {
+				background-color: $color-secondary;
+				cursor: pointer;
+			}
+		}
+	}
+}
