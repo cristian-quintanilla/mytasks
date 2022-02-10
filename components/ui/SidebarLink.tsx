@@ -6,14 +6,14 @@ const SidebarLink = ({ id, title, tasks }: ProjectInterface) => {
 	const dispatch = useAppDispatch();
 
 	//* Set active project
-	const setActiveProjectHandler = (project: ProjectInterface) => {
-		dispatch(setActiveProject(project));
+	const setActiveProjectHandler = () => {
+		dispatch(setActiveProject(id));
 	}
 
 	return (
 		<button
 			className='sidebar__link'
-			onClick={ () => setActiveProjectHandler({ id, title, tasks }) }
+			onClick={ setActiveProjectHandler }
 		>
 			{
 				title.length > 20 ? (

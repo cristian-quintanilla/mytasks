@@ -2,6 +2,7 @@ import { FaTrashAlt } from 'react-icons/fa';
 
 import Task from './Task';
 import { ProjectInterface } from '../../interfaces';
+import { useAppSelector } from '../../store/hooks';
 
 const TasksList = (project: ProjectInterface) => {
 	return (

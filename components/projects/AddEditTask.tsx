@@ -8,20 +8,12 @@ const INITIAL_STATE = {
 }
 
 const AddEditTask = () => {
-  const {
-		values,
-		errors,
-		handleBlur,
-		handleInputChange,
-		onSubmit
-	} = useForm(INITIAL_STATE, validateTask, addOrEdit);
-
+  const { values, errors, handleBlur, handleInputChange, onSubmit } = useForm(INITIAL_STATE, validateTask, addOrEdit);
 	const { task } = values;
 
 	//* Add / Edit Task
 	async function addOrEdit() {
-		console.log('Adding...');
-		console.log({ task });
+    console.log('addOrEdit taskObject');
 	}
 
   return (

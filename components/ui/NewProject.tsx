@@ -1,43 +1,38 @@
 import React from 'react';
 import { FaPlus } from 'react-icons/fa';
 
+import AlertError from './AlertError';
+
 import validateNewProject from '../../validation/validateNewProject';
 import { useForm } from '../../hooks/useForm';
-import AlertError from './AlertError';
+
+import { ProjectInterface } from '../../interfaces';
+import { useAppDispatch } from '../../store/hooks';
+import { addProject } from '../../reducers/projectsReducer';
 
 const INITIAL_STATE = {
 	title: '',
 }
 
 const NewProject = () => {
-	// const { formulario, handleInputChange, reset } = useForm({
-	// 	title: '',
-	// });
+	const dispatch = useAppDispatch();
 
-	// const { title } = formulario;
-
-	// //* Create Project
-	// const createProject = (event: React.FormEvent<HTMLFormElement>) => {
-	// 	event.preventDefault();
-
-	// 	console.log(title);
-	// 	reset();
-	// }
-
-	const {
-		values,
-		errors,
-		handleBlur,
-		handleInputChange,
-		onSubmit
-	} = useForm(INITIAL_STATE, validateNewProject, create);
-
+	const { values, errors, handleBlur, handleInputChange, onSubmit } = useForm(
+		INITIAL_STATE,
+		validateNewProject,
+		create
+	);
 	const { title } = values;
 
-	//* Register
+	//* Create Project
 	async function create() {
-		console.log('Creating project...');
-		console.log(title);
+		const newProject: ProjectInterface = {
+			id: Math.random().toString(),
+			title: title || '',
+			tasks: [],
+		}
+
+		dispatch( addProject(newProject) );
 	}
 
 	return (

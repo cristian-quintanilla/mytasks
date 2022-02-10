@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import type { RootState } from '../store/store';
-import { ProjectInterface } from '../interfaces';
+import { ProjectInterface, TaskInterface } from '../interfaces';
 
 export type ProjectsState = {
 	projects: ProjectInterface[];
@@ -12,44 +12,12 @@ const initialState: ProjectsState = {
 	projects: [
 		{
 			id: 'project-1',
-			title: 'Lorem ipsum dolor sit amet consectetur adipisicing.',
+			title: 'Proyecto 1',
 			tasks: []
 		},
 		{
-			id: 'project-2',
-			title: 'Project 2',
-			tasks: [
-				{
-					id: '1',
-					title: 'Task 1',
-					done: false,
-				},
-				{
-					id: '2',
-					title: 'Task 2',
-					done: false,
-				},
-			]
-		},
-		{
-			id: 'project-3',
-			title: 'Project 3',
-			tasks: [
-				{
-					id: '1',
-					title: 'Task 1',
-					done: false,
-				},
-				{
-					id: '2',
-					title: 'Task 2',
-					done: false,
-				},
-			]
-		},
-		{
 			id: 'project-4',
-			title: 'Lorem ipsum dolor sit amet consectetur adipisicing.',
+			title: 'Proyecto 2',
 			tasks: [
 				{
 					id: '1',
@@ -65,16 +33,16 @@ const initialState: ProjectsState = {
 		},
 		{
 			id: 'project-5',
-			title: 'Project 2',
+			title: 'Proyecto 3',
 			tasks: [
 				{
 					id: '1',
-					title: 'Task 1',
+					title: 'Proyecto 3. Task 1',
 					done: false,
 				},
 				{
 					id: '2',
-					title: 'Task 2',
+					title: 'Proyecto 3. Task 2',
 					done: false,
 				},
 			]
@@ -87,13 +55,17 @@ export const projectsSlice = createSlice({
 	name: 'projects',
 	initialState,
 	reducers: {
-		setActiveProject: (state, action: PayloadAction<ProjectInterface>) => {
-      state.activeProject = action.payload;
+		setActiveProject: (state, action: PayloadAction<string>) => {
+      const activeProject = state.projects.find(project => project.id === action.payload);
+			state.activeProject = activeProject ?? null;
     },
+		addProject: (state, action: PayloadAction<ProjectInterface>) => {
+			state.projects = [ action.payload, ...state.projects ];
+		}
 	},
 });
 
-export const { setActiveProject } = projectsSlice.actions;
+export const { addProject, setActiveProject } = projectsSlice.actions;
 
 export const getProjects = (state: RootState) => state.projects.projects;
 export const getActiveProject = (state: RootState) => state.projects.activeProject;
