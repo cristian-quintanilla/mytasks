@@ -1,9 +1,14 @@
 import { BsGoogle, BsFacebook, BsTwitter } from 'react-icons/bs';
 
+import { useAppDispatch } from '../../store/hooks';
+import { startLoginGoogle } from '../../reducers/authReducer';
+
 const Social = () => {
+	const dispatch = useAppDispatch();
+
 	//* Google
 	const googleLogin = () => {
-		console.log('Google login');
+		dispatch( startLoginGoogle() );
 	}
 
 	//* Facebook

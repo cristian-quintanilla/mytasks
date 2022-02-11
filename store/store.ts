@@ -1,14 +1,16 @@
 import { configureStore, Action, ThunkAction } from '@reduxjs/toolkit';
 
-import uiReducer from '../reducers/uiReducer';
+import authReducer from '../reducers/authReducer';
 import projectsReducer from '../reducers/projectsReducer';
 import tasksReducer from '../reducers/tasksReducer';
+import uiReducer from '../reducers/uiReducer';
 
 export const store = configureStore({
   reducer: {
-    ui: uiReducer,
+    auth: authReducer,
     projects: projectsReducer,
     tasks: tasksReducer,
+    ui: uiReducer,
   },
 });
 
