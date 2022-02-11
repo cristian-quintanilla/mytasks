@@ -2,7 +2,7 @@ interface Values {
 	title?: string;
 }
 
-export default function validateNewProject(values: Values) {
+export default function validateProject(values: Values) {
 	let errores: Values = {};
 
 	// Validate Title

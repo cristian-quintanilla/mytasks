@@ -1,17 +1,35 @@
-import { FaTrashAlt } from 'react-icons/fa';
+import { useState, useEffect } from 'react';
+import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
 
 import Task from './Task';
 
 import { ProjectInterface } from '../../interfaces';
 import { useAppDispatch } from '../../store/hooks';
-import { removeProject } from '../../reducers/projectsReducer';
+import { editProject, removeProject } from '../../reducers/projectsReducer';
 
 const TasksList = (project: ProjectInterface) => {
 	const dispatch = useAppDispatch();
+	const [ titleForm, setTitleForm ] = useState<string>(project.title);
+
+	//* Change the title of the project
+	useEffect(() => {
+		setTitleForm(project.title);
+	}, [project.title]);
+
+	//* Input change
+	const handleInputChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+		setTitleForm(target.value);
+	};
 
 	//* Remove project
 	function remove() {
 		dispatch( removeProject(project.id) );
+	}
+
+	//* Edit Project
+	function edit() {
+		const editProjectData: ProjectInterface = { ...project, title: titleForm };
+		dispatch( editProject(editProjectData) );
 	}
 
 	return (
@@ -31,10 +49,34 @@ const TasksList = (project: ProjectInterface) => {
 				)
 			}
 
-			<button className='tasks__delete' onClick={ remove }>
-				Delete Project
-				<FaTrashAlt />
-			</button>
+			<div className='tasks__options'>
+				<button className='tasks__delete' onClick={ remove }>
+					Delete Project
+					<FaTrashAlt />
+				</button>
+
+				<div className='tasks__options-edit'>
+					<input
+						type='text'
+						name='title'
+						className={ titleForm.trim().length < 3 ? 'tasks__options-input-error' : 'tasks__options-input' }
+						placeholder='Project Title'
+						autoComplete='off'
+						value={ titleForm }
+						onChange={ handleInputChange }
+					/>
+
+					<button
+						className='tasks__options-edit__button'
+						type='submit'
+						disabled={ titleForm.trim().length < 3 ? true : false }
+						onClick={ edit }
+					>
+						Edit Project
+						<FaPencilAlt />
+					</button>
+				</div>
+			</div>
 		</section>
 	);
 }

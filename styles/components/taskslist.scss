@@ -1,3 +1,23 @@
+@mixin input ($error) {
+	border-radius: .5rem;
+	border: 2px solid;
+	font-size: 1.4rem;
+	outline: none;
+	padding: 1rem 1.25rem;
+
+	@if $error {
+		border-color:#F44336;
+	} @else {
+		border-color: $color-grey-light-2;
+	}
+}
+
+@mixin button-display {
+	display: flex;
+	align-items: center;
+	gap: 1.5rem;
+}
+
 .tasks {
 	display: flex;
 	flex-direction: column;
@@ -21,11 +41,56 @@
 		text-align: center;
 	}
 
-	&__delete {
-		align-self: flex-start;
+	&__options {
 		display: flex;
-		align-items: center;
+		align-items: flex-start;
+		flex-direction: column;
+		padding: .75rem 1rem;
 		gap: 1rem;
+		margin-top: 1rem;
+		width: 100%;
+
+		&-edit {
+			display: flex;
+			gap: 1rem;
+
+			&__button {
+				@include button-display;
+
+				background-color: $color-primary;
+				border-radius: .5rem;
+				border: none;
+				color: $color-grey-light-1;
+				font-size: 1.6rem;
+				font-weight: 400;
+				outline: none;
+				padding: 1rem 1.5rem;
+				transition: all .2s ease-in-out;
+
+				&:hover {
+					background-color: lighten($color: $color-primary, $amount: 15%);
+					cursor: pointer;
+				}
+
+				&:disabled, &[disabled] {
+					border: 2px solid darken($color: $color-grey-light-2, $amount: 10%);
+					background-color: $color-grey-light-1;
+					color: darken($color: $color-grey-light-2, $amount: 10%);
+				}
+			}
+		}
+
+		&-input-error {
+			@include input($error: true);
+		}
+
+		&-input {
+			@include input($error: false);
+		}
+	}
+
+	&__delete {
+		@include button-display;
 
 		background-color: #F44336;
 		border-radius: .5rem;
@@ -35,8 +100,6 @@
 		font-weight: 400;
 		outline: none;
 		padding: 1rem 1rem;
-		margin-left: 2rem;
-		margin-top: 1rem;
 		transition: all .2s ease-in-out;
 
 		&:hover {

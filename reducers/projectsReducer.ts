@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import type { RootState } from '../store/store';
-import { ProjectInterface, TaskInterface } from '../interfaces';
+import { ProjectInterface } from '../interfaces';
 
 export type ProjectsState = {
 	projects: ProjectInterface[];
@@ -58,18 +58,22 @@ export const projectsSlice = createSlice({
 		addProject: (state, action: PayloadAction<ProjectInterface>) => {
 			state.projects = [ action.payload, ...state.projects ];
 		},
+		removeProject: (state, action: PayloadAction<string>) => {
+			state.projects = state.projects.filter(project => project.id !== action.payload);
+			state.activeProject = null;
+		},
 		setActiveProject: (state, action: PayloadAction<string>) => {
       const activeProject = state.projects.find(project => project.id === action.payload);
 			state.activeProject = activeProject ?? null;
     },
-		removeProject: (state, action: PayloadAction<string>) => {
-			state.projects = state.projects.filter(project => project.id !== action.payload);
-			state.activeProject = null;
+		editProject: (state, action: PayloadAction<ProjectInterface>) => {
+			state.projects = state.projects.map(project => project.id === action.payload.id ? action.payload : project);
+			state.activeProject = state.activeProject?.id === action.payload.id ? action.payload : state.activeProject;
 		}
 	},
 });
 
-export const { addProject, setActiveProject, removeProject } = projectsSlice.actions;
+export const { addProject, editProject, removeProject, setActiveProject } = projectsSlice.actions;
 
 export const getProjects = (state: RootState) => state.projects.projects;
 export const getActiveProject = (state: RootState) => state.projects.activeProject;

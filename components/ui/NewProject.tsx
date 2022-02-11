@@ -3,7 +3,7 @@ import { FaPlus } from 'react-icons/fa';
 
 import AlertError from './AlertError';
 
-import validateNewProject from '../../validation/validateNewProject';
+import validateProject from '../../validation/validateProject';
 import { useForm } from '../../hooks/useForm';
 
 import { ProjectInterface } from '../../interfaces';
@@ -19,7 +19,7 @@ const NewProject = () => {
 
 	const { values, errors, handleBlur, handleInputChange, onSubmit } = useForm(
 		INITIAL_STATE,
-		validateNewProject,
+		validateProject,
 		create
 	);
 	const { title } = values;
@@ -28,7 +28,7 @@ const NewProject = () => {
 	function create() {
 		const newProject: ProjectInterface = {
 			id: Math.random().toString(),
-			title: title || '',
+			title: title?.trim() || '',
 			tasks: [],
 		}
 
