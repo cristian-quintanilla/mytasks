@@ -1,15 +1,10 @@
 import { useState } from 'react';
 
-import AlertError from '../ui/AlertError';
-
-import validateTask from '../../validation/validateTask';
-import { useForm } from '../../hooks/useForm';
-
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { addTask, getActiveProject } from '../../reducers/projectsReducer';
+import { getActiveProject } from '../../reducers/projectsReducer';
 
-const AddEditTask = () => {
-	const dispatch = useAppDispatch();
+const FormTask = () => {
+  const dispatch = useAppDispatch();
 	const project = useAppSelector(getActiveProject);
 
 	const [ titleForm, setTitleForm ] = useState<string>('');
@@ -28,7 +23,7 @@ const AddEditTask = () => {
 			done: false
 		}
 
-		dispatch( addTask(payload) );
+    console.log(payload);
 	}
 
 	return (
@@ -60,4 +55,4 @@ const AddEditTask = () => {
 	);
 }
 
-export default AddEditTask;
+export default FormTask;

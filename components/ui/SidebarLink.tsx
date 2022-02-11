@@ -1,13 +1,16 @@
 import { useAppDispatch } from '../../store/hooks';
-import { setActiveProject } from '../../reducers/projectsReducer';
 import { ProjectInterface } from '../../interfaces';
 
-const SidebarLink = ({ id, title, tasks }: ProjectInterface) => {
+import { setActiveProject } from '../../reducers/projectsReducer';
+import { getTasks } from '../../reducers/tasksReducer';
+
+const SidebarLink = ({ id, title }: ProjectInterface) => {
 	const dispatch = useAppDispatch();
 
 	//* Set active project
 	const setActiveProjectHandler = () => {
-		dispatch(setActiveProject(id));
+		dispatch( setActiveProject(id) );
+		dispatch( getTasks(id) );
 	}
 
 	return (

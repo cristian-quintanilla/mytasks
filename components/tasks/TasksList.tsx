@@ -1,14 +1,17 @@
 import { useState, useEffect } from 'react';
 import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
 
-import Task from './Task';
+import Task from '../tasks/Task';
 
 import { ProjectInterface } from '../../interfaces';
-import { useAppDispatch } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { editProject, removeProject } from '../../reducers/projectsReducer';
+import { getTasksProject } from '../../reducers/tasksReducer';
 
 const TasksList = (project: ProjectInterface) => {
 	const dispatch = useAppDispatch();
+	const tasks = useAppSelector(getTasksProject);
+
 	const [ titleForm, setTitleForm ] = useState<string>(project.title);
 
 	//* Change the title of the project
@@ -37,10 +40,10 @@ const TasksList = (project: ProjectInterface) => {
 			<h2 className='tasks__title'>Project: { project.title }</h2>
 
 			{
-				project.tasks?.length === 0 ? (
+				tasks.length === 0 ? (
 					<p className='tasks__no-tasks'>No tasks. Start creating one.</p>
 				) : (
-					project.tasks?.map(task => (
+					tasks.map(task => (
 						<Task
 							key={ task.id }
 							{ ...task }

@@ -1,12 +1,14 @@
-import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
+import { configureStore, Action, ThunkAction } from '@reduxjs/toolkit';
 
 import uiReducer from '../reducers/uiReducer';
 import projectsReducer from '../reducers/projectsReducer';
+import tasksReducer from '../reducers/tasksReducer';
 
 export const store = configureStore({
   reducer: {
     ui: uiReducer,
     projects: projectsReducer,
+    tasks: tasksReducer,
   },
 });
 

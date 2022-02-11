@@ -1,5 +1,5 @@
-import AddEditTask from './AddEditTask';
-import TasksList from './TasksList';
+import FormTask from '../tasks/FormTask';
+import TasksList from '../tasks/TasksList';
 
 import { useAppSelector } from '../../store/hooks';
 import { getActiveProject } from '../../reducers/projectsReducer';
@@ -12,7 +12,7 @@ const Project = () => {
 			{
 				activeProject ? (
 					<>
-						<AddEditTask />
+						<FormTask />
       			<TasksList { ...activeProject } />
 					</>
 				) : (
