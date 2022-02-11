@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaPlus } from 'react-icons/fa';
 
-import AlertError from './AlertError';
+import AlertError from '../ui/AlertError';
 
 import validateProject from '../../validation/validateProject';
 import { useForm } from '../../hooks/useForm';

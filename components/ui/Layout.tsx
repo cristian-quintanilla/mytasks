@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 
-import NewProject from './NewProject';
+import NewProject from '../projects/NewProject';
 import SidebarLink from './SidebarLink';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';

@@ -1,54 +1,63 @@
+import { useState } from 'react';
+
 import AlertError from '../ui/AlertError';
 
 import validateTask from '../../validation/validateTask';
 import { useForm } from '../../hooks/useForm';
 
-const INITIAL_STATE = {
-	task: ''
-}
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { addTask, getActiveProject } from '../../reducers/projectsReducer';
 
 const AddEditTask = () => {
-  const { values, errors, handleBlur, handleInputChange, onSubmit } = useForm(INITIAL_STATE, validateTask, addOrEdit);
-	const { task } = values;
+	const dispatch = useAppDispatch();
+	const project = useAppSelector(getActiveProject);
+
+	const [ titleForm, setTitleForm ] = useState<string>('');
+
+	//* Input change
+	const handleInputChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+		setTitleForm(target.value);
+	};
 
 	//* Add / Edit Task
-	async function addOrEdit() {
-    console.log('addOrEdit taskObject');
+	const addOrEdit = () => {
+		const payload = {
+			projectID: project?.id,
+			id: Math.random().toString(),
+			title: titleForm.trim() || '',
+			done: false
+		}
+
+		dispatch( addTask(payload) );
 	}
 
-  return (
-    <section className='form-task'>
-      <h2 className='form-task__title'>Add Task</h2>
+	return (
+		<section className='form-task'>
+			<h2 className='form-task__title'>Add Task</h2>
 
-      <form className='form-task__form' onSubmit={ onSubmit }>
-        <input
-          type='text'
-          id='task-name'
-          name='task'
-          className='form-task__form-input'
-          autoComplete='off'
-          placeholder='Task Name'
-          value={ task }
-          onBlur={ handleBlur }
-          onChange={ handleInputChange }
-        />
+			<div className='form-task__form'>
+				<input
+					type='text'
+					id='task-name'
+					name='task'
+					className='form-task__form-input'
+					autoComplete='off'
+					placeholder='Task Name'
+					value={ titleForm }
+					onChange={ handleInputChange }
+				/>
 
-        {
-          errors.task ? (
-            <AlertError text={ errors.task } />
-          ) : (
-            <button
-              type='submit'
-              className='form-task__form-button'
-              disabled={ !task }
-            >
-              Add Task
-            </button>
-          )
-        }
-      </form>
-    </section>
-  );
+				<button
+					type='submit'
+					className='form-task__form-button'
+					disabled={ titleForm.trim().length < 3 ? true : false }
+					onClick={ addOrEdit }
+				>
+					Add Task
+				</button>
+			</div>
+		</section>
+	);
 }
 
 export default AddEditTask;
