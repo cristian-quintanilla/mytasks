@@ -20,3 +20,8 @@ export interface NewUserInterface {
 	email: string;
 	password: string;
 }
+
+export interface LoginRecordsInterface {
+	email: string;
+	password: string;
+}

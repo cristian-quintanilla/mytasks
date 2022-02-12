@@ -3,14 +3,15 @@ import { User } from 'firebase/auth';
 
 import {
 	auth,
-	googleAuthProvider,
-	signInWithPopup,
 	createUserWithEmailAndPassword,
+	googleAuthProvider,
+	signInWithEmailAndPassword,
+	signInWithPopup,
 	updateProfile,
 } from '../firebase/config';
 
 import { AppDispatch, AppThunk } from '../store/store';
-import { AuthInterface, NewUserInterface } from '../interfaces';
+import { AuthInterface, LoginRecordsInterface, NewUserInterface } from '../interfaces';
 
 const initialState: AuthInterface = {
 	uid: '',
@@ -55,6 +56,19 @@ export const startEmailAndPasswordRegister = (newUser: NewUserInterface): AppThu
 		await updateProfile(currentUser, { displayName: name });
 
 		const { uid, displayName } = user;
+		dispatch( authSlice.actions.login({ uid, name: displayName || '' }));
+	} catch (err) {
+		console.log(err);
+	}
+}
+
+export const startLoginWithEmailAndPassword = (records: LoginRecordsInterface): AppThunk => async (dispatch: AppDispatch) => {
+	const { email, password } = records;
+
+	try {
+		const { user } = await signInWithEmailAndPassword(auth, email, password);
+		const { uid, displayName } = user;
+
 		dispatch( authSlice.actions.login({ uid, name: displayName || '' }));
 	} catch (err) {
 		console.log(err);

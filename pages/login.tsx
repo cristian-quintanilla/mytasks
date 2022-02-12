@@ -8,6 +8,8 @@ import Social from '../components/auth/Social';
 
 import validateLogin from '../validation/validateLogin';
 import { useForm } from '../hooks/useForm';
+import { useAppDispatch } from '../store/hooks';
+import { startLoginWithEmailAndPassword } from '../reducers/authReducer';
 
 const INITIAL_STATE = {
 	email: '',
@@ -15,20 +17,24 @@ const INITIAL_STATE = {
 }
 
 const LoginPage = () => {
-	const {
-		values,
-		errors,
-		handleBlur,
-		handleInputChange,
-		onSubmit
-	} = useForm(INITIAL_STATE, validateLogin, login);
+	const dispatch = useAppDispatch();
+
+	const { values, errors, handleBlur, handleInputChange, onSubmit } = useForm(
+		INITIAL_STATE,
+		validateLogin,
+		login
+	);
 
 	const { email, password } = values;
 
 	//* Login
 	async function login() {
-		console.log('Iniciando sesión...');
-		console.log({ email, password });
+		const records = {
+			email: email || '',
+			password: password || ''
+		}
+
+		dispatch( startLoginWithEmailAndPassword(records) );
 	}
 
 	return (
