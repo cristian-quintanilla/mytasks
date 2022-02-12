@@ -1,11 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { User } from 'firebase/auth';
 
 import {
-	auth, googleAuthProvider, signInWithPopup, createUserWithEmailAndPassword
+	auth,
+	googleAuthProvider,
+	signInWithPopup,
+	createUserWithEmailAndPassword,
+	updateProfile,
 } from '../firebase/config';
 
 import { AppDispatch, AppThunk } from '../store/store';
-import { AuthInterface } from '../interfaces';
+import { AuthInterface, NewUserInterface } from '../interfaces';
 
 const initialState: AuthInterface = {
 	uid: '',
@@ -32,8 +37,8 @@ export const authSlice = createSlice({
 
 export const startLoginGoogle = (): AppThunk => async (dispatch: AppDispatch) => {
 	try {
-		const result = await signInWithPopup(auth, googleAuthProvider);
-		const { uid, displayName } = result.user;
+		const { user } = await signInWithPopup(auth, googleAuthProvider);
+		const { uid, displayName } = user;
 
 		dispatch( authSlice.actions.login({ uid, name: displayName || '' }));
 	} catch (err) {
@@ -41,11 +46,15 @@ export const startLoginGoogle = (): AppThunk => async (dispatch: AppDispatch) =>
 	}
 }
 
-export const startEmailAndPasswordRegister = (email: string, password: string): AppThunk => async (dispatch: AppDispatch) => {
-	try {
-		const result = await createUserWithEmailAndPassword(auth, email, password);
-		const { uid, displayName } = result.user;
+export const startEmailAndPasswordRegister = (newUser: NewUserInterface): AppThunk => async (dispatch: AppDispatch) => {
+	const { name, email, password } = newUser;
 
+	try {
+		const { user } = await createUserWithEmailAndPassword(auth, email, password);
+		const currentUser: User = auth.currentUser as User;
+		await updateProfile(currentUser, { displayName: name });
+
+		const { uid, displayName } = user;
 		dispatch( authSlice.actions.login({ uid, name: displayName || '' }));
 	} catch (err) {
 		console.log(err);

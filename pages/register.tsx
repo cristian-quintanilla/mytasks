@@ -7,6 +7,8 @@ import InputForm from '../components/auth/InputForm';
 
 import validateRegister from '../validation/validateRegister';
 import { useForm } from '../hooks/useForm';
+import { useAppDispatch } from '../store/hooks';
+import { startEmailAndPasswordRegister } from '../reducers/authReducer';
 
 const INITIAL_STATE = {
 	name: '',
@@ -15,26 +17,31 @@ const INITIAL_STATE = {
 }
 
 const LoginPage = () => {
-	const {
-		values,
-		errors,
-		handleBlur,
-		handleInputChange,
-		onSubmit
-	} = useForm(INITIAL_STATE, validateRegister, register);
+	const dispatch = useAppDispatch();
+
+	const { values, errors, handleBlur, handleInputChange, onSubmit } = useForm(
+		INITIAL_STATE,
+		validateRegister,
+		register
+	);
 
 	const { name, email, password } = values;
 
 	//* Register
 	async function register() {
-		console.log('Registrando...');
-		console.log({ name, email, password });
+		const newUser = {
+			name: name || '',
+			email: email || '',
+			password: password || '',
+		}
+
+		dispatch( startEmailAndPasswordRegister(newUser) );
 	}
 
 	return (
 		<>
 			<Head>
-				<title>MyTasks - Login</title>
+				<title>MyTasks - Register</title>
 			</Head>
 
 			<div className='container'>

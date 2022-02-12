@@ -14,3 +14,9 @@ export interface AuthInterface {
 	uid: string;
 	name: string;
 }
+
+export interface NewUserInterface {
+	name: string;
+	email: string;
+	password: string;
+}
