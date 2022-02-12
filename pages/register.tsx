@@ -1,14 +1,17 @@
 /* eslint-disable react/no-unescaped-entities */
 import Head from 'next/head';
 import Link from 'next/link';
+import { useRouter } from 'next/router'
+import { Toaster } from 'react-hot-toast';
 
 import AlertError from '../components/ui/AlertError';
 import InputForm from '../components/auth/InputForm';
 
-import validateRegister from '../validation/validateRegister';
+import { getLoading } from '../reducers/uiReducer';
+import { startRegisterWithEmailAndPassword } from '../reducers/authReducer';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { useForm } from '../hooks/useForm';
-import { useAppDispatch } from '../store/hooks';
-import { startEmailAndPasswordRegister } from '../reducers/authReducer';
+import validateRegister from '../validation/validateRegister';
 
 const INITIAL_STATE = {
 	name: '',
@@ -16,8 +19,10 @@ const INITIAL_STATE = {
 	password: ''
 }
 
-const LoginPage = () => {
+const RegisterPage = () => {
 	const dispatch = useAppDispatch();
+	const loading = useAppSelector(getLoading);
+	const router = useRouter();
 
 	const { values, errors, handleBlur, handleInputChange, onSubmit } = useForm(
 		INITIAL_STATE,
@@ -35,7 +40,8 @@ const LoginPage = () => {
 			password: password || '',
 		}
 
-		dispatch( startEmailAndPasswordRegister(newUser) );
+		dispatch( startRegisterWithEmailAndPassword(newUser) );
+		router.replace('/projects', '/projects', { shallow: true });
 	}
 
 	return (
@@ -108,14 +114,20 @@ const LoginPage = () => {
 						<button
 							className='register__form-submit'
 							type='submit'
+							disabled={ loading || Object.keys(errors).length > 0 }
 						>
-							Register
+							{ loading ? 'Loading...' : 'Register' }
 						</button>
 					</form>
 				</section>
 			</div>
+
+			<Toaster
+				position='top-center'
+				reverseOrder={ false }
+			/>
 		</>
 	);
 }
 
-export default LoginPage;
+export default RegisterPage;

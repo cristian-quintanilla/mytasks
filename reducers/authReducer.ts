@@ -14,10 +14,26 @@ import {
 
 import { AppDispatch, AppThunk } from '../store/store';
 import { AuthInterface, LoginRecordsInterface, NewUserInterface } from '../interfaces';
+import { startLoading, stopLoading } from './uiReducer';
 
 const initialState: AuthInterface = {
 	uid: '',
 	name: '',
+};
+
+export const toastOptions = {
+	duration: 4000,
+	style: {
+		border: '2px solid #F44336',
+		padding: '16px',
+		fontSize: '1.6rem',
+		fontWeight: 'bold',
+		color: '#F44336',
+	},
+	iconTheme: {
+		primary: '#F44336',
+		secondary: '#FFFAEE',
+	},
 };
 
 export const authSlice = createSlice({
@@ -51,19 +67,32 @@ export const startLoginGoogle = (): AppThunk => {
 	}
 }
 
-export const startEmailAndPasswordRegister = (newUser: NewUserInterface): AppThunk => {
+export const startRegisterWithEmailAndPassword = (newUser: NewUserInterface): AppThunk => {
 	const { name, email, password } = newUser;
 
 	return async (dispatch: AppDispatch) => {
+		dispatch( startLoading() );
+
 		try {
 			const { user } = await createUserWithEmailAndPassword(auth, email, password);
 			const currentUser: User = auth.currentUser as User;
 			await updateProfile(currentUser, { displayName: name });
 
 			const { uid, displayName } = user;
+
 			dispatch( authSlice.actions.login({ uid, name: displayName || '' }));
-		} catch (err) {
-			console.log(err);
+			dispatch( stopLoading() );
+		} catch (error) {
+			let errorMessage = '';
+
+			if (error instanceof FirebaseError) {
+				if (error.code === 'auth/email-already-in-use') {
+					errorMessage = 'Email already exists.';
+				}
+			}
+
+			toast.error(errorMessage, toastOptions);
+			dispatch( stopLoading() );
 		}
 	}
 }
@@ -72,11 +101,14 @@ export const startLoginWithEmailAndPassword = (records: LoginRecordsInterface): 
 	const { email, password } = records;
 
 	return async (dispatch: AppDispatch) => {
+		dispatch( startLoading() );
+
 		try {
 			const { user } = await signInWithEmailAndPassword(auth, email, password);
 			const { uid, displayName } = user;
 
 			dispatch( authSlice.actions.login({ uid, name: displayName || '' }));
+			dispatch( stopLoading() );
 		} catch (error) {
 			let errorMessage = '';
 
@@ -90,22 +122,8 @@ export const startLoginWithEmailAndPassword = (records: LoginRecordsInterface): 
 				}
 			}
 
-			toast.error(errorMessage,
-				{
-					duration: 4000,
-					style: {
-						border: '2px solid #F44336',
-						padding: '16px',
-						fontSize: '1.6rem',
-						fontWeight: 'bold',
-						color: '#F44336',
-					},
-					iconTheme: {
-						primary: '#F44336',
-						secondary: '#FFFAEE',
-					},
-				},
-			);
+			toast.error(errorMessage, toastOptions);
+			dispatch( stopLoading() );
 		}
 	}
 }

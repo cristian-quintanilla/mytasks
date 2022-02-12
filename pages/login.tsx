@@ -1,16 +1,18 @@
 /* eslint-disable react/no-unescaped-entities */
 import Head from 'next/head';
 import Link from 'next/link';
+import { useRouter } from 'next/router'
 import { Toaster } from 'react-hot-toast';
 
 import AlertError from '../components/ui/AlertError';
 import InputForm from '../components/auth/InputForm';
 import Social from '../components/auth/Social';
 
-import validateLogin from '../validation/validateLogin';
-import { useForm } from '../hooks/useForm';
-import { useAppDispatch } from '../store/hooks';
+import { getLoading } from '../reducers/uiReducer';
 import { startLoginWithEmailAndPassword } from '../reducers/authReducer';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { useForm } from '../hooks/useForm';
+import validateLogin from '../validation/validateLogin';
 
 const INITIAL_STATE = {
 	email: '',
@@ -19,6 +21,8 @@ const INITIAL_STATE = {
 
 const LoginPage = () => {
 	const dispatch = useAppDispatch();
+	const loading = useAppSelector(getLoading);
+	const router = useRouter();
 
 	const { values, errors, handleBlur, handleInputChange, onSubmit } = useForm(
 		INITIAL_STATE,
@@ -36,6 +40,7 @@ const LoginPage = () => {
 		}
 
 		dispatch( startLoginWithEmailAndPassword(records) );
+		router.replace('/projects', '/projects', { shallow: true });
 	}
 
 	return (
@@ -85,8 +90,9 @@ const LoginPage = () => {
 						<button
 							className='login__form-submit'
 							type='submit'
+							disabled={ loading || Object.keys(errors).length > 0 }
 						>
-							Login
+							{ loading ? 'Loading...' : 'Login' }
 						</button>
 					</form>
 
