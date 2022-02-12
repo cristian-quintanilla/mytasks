@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import Head from 'next/head';
 import Link from 'next/link';
+import { Toaster } from 'react-hot-toast';
 
 import AlertError from '../components/ui/AlertError';
 import InputForm from '../components/auth/InputForm';
@@ -101,6 +102,11 @@ const LoginPage = () => {
 					</section>
 				</section>
 			</div>
+
+			<Toaster
+				position='top-center'
+				reverseOrder={ false }
+			/>
 		</>
 	);
 }
