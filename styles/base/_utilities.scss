@@ -38,3 +38,23 @@
 		margin: 2rem 0;
 	}
 }
+
+.log-in {
+	margin-top: 2rem;
+
+	a {
+		border: 2px solid $color-primary;
+		border-radius: .5rem;
+		color: $color-primary;
+		font-size: 2.2rem;
+		padding: .75rem 2.5rem;
+		text-decoration: none;
+
+		transition: all .5s ease;
+
+		&:hover {
+			color: $color-grey-light-1;
+			background-color: $color-primary;
+		}
+	}
+}

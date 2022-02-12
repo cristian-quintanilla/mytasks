@@ -8,6 +8,9 @@ import {
 	createUserWithEmailAndPassword,
 	// signOut,
 	updateProfile,
+	onAuthStateChanged,
+	NextOrObserver,
+	User,
 } from 'firebase/auth';
 
 import {
@@ -33,6 +36,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const googleAuthProvider = new GoogleAuthProvider();
+const checkAuth = (callback: NextOrObserver<User | null>) => auth.onAuthStateChanged(callback);
 
 export {
 	auth,
@@ -42,4 +46,6 @@ export {
 	signInWithEmailAndPassword,
 	signInWithPopup,
 	updateProfile,
+	onAuthStateChanged,
+	checkAuth
 }

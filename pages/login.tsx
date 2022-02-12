@@ -1,15 +1,17 @@
 /* eslint-disable react/no-unescaped-entities */
 import Head from 'next/head';
 import Link from 'next/link';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 import { Toaster } from 'react-hot-toast';
+import { useEffect } from 'react';
 
 import AlertError from '../components/ui/AlertError';
 import InputForm from '../components/auth/InputForm';
 import Social from '../components/auth/Social';
 
+import { checkAuth } from '../firebase/config';
 import { getLoading } from '../reducers/uiReducer';
-import { startLoginWithEmailAndPassword } from '../reducers/authReducer';
+import { login, startLoginWithEmailAndPassword } from '../reducers/authReducer';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { useForm } from '../hooks/useForm';
 import validateLogin from '../validation/validateLogin';
@@ -27,13 +29,28 @@ const LoginPage = () => {
 	const { values, errors, handleBlur, handleInputChange, onSubmit } = useForm(
 		INITIAL_STATE,
 		validateLogin,
-		login
+		loginUser
 	);
 
 	const { email, password } = values;
 
+	//* User is logged in
+	useEffect(() => {
+		checkAuth(async (user) => {
+			if (user?.uid) {
+				const { uid, displayName } = user;
+
+				dispatch( login({ uid, name: displayName || '' }) );
+				// TODO: Start Loading Projects
+				// dispatch( startLoadingNotes(uid) );
+
+				router.push('/projects');
+			}
+		});
+	}, [dispatch, router]);
+
 	//* Login
-	async function login() {
+	async function loginUser() {
 		const records = {
 			email: email || '',
 			password: password || ''

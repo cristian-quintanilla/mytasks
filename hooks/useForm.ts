@@ -16,7 +16,7 @@ export const useForm = <T extends Object>(initialState: T, validate: (t: T) => T
 
 			setSubmitForm(false);
 		}
-	// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [errors]);
 
 	//* Handle Change

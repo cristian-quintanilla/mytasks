@@ -12,7 +12,7 @@ import {
 	updateProfile,
 } from '../firebase/config';
 
-import { AppDispatch, AppThunk } from '../store/store';
+import { AppDispatch, AppThunk, RootState } from '../store/store';
 import { AuthInterface, LoginRecordsInterface, NewUserInterface } from '../interfaces';
 import { startLoading, stopLoading } from './uiReducer';
 
@@ -53,6 +53,8 @@ export const authSlice = createSlice({
 });
 
 // https://github.com/atharvadeosthale/firebase-auth-article/blob/master/src/firebase.js
+
+export const { login, logout } = authSlice.actions;
 
 export const startLoginGoogle = (): AppThunk => {
 	return async (dispatch: AppDispatch) => {
@@ -127,5 +129,14 @@ export const startLoginWithEmailAndPassword = (records: LoginRecordsInterface): 
 		}
 	}
 }
+
+export const getUser = (state: RootState) => {
+	const user = {
+		uid: state.auth.uid,
+		name: state.auth.name,
+	};
+
+	return user;
+};
 
 export default authSlice.reducer;
