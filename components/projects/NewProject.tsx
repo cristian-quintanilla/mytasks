@@ -8,7 +8,7 @@ import { useForm } from '../../hooks/useForm';
 
 import { ProjectInterface } from '../../interfaces';
 import { useAppDispatch } from '../../store/hooks';
-import { addProject } from '../../reducers/projectsReducer';
+import { addProject, startNewProject } from '../../reducers/projectsReducer';
 
 const INITIAL_STATE = {
 	title: '',
@@ -26,13 +26,7 @@ const NewProject = () => {
 
 	//* Create Project
 	function create() {
-		const newProject: ProjectInterface = {
-			id: Math.random().toString(),
-			title: title?.trim() || '',
-			tasks: [],
-		}
-
-		dispatch( addProject(newProject) );
+		dispatch( startNewProject(title || '') );
 	}
 
 	return (

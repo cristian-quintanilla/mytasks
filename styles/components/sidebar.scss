@@ -33,6 +33,35 @@
 	transition: all .5s ease;
 }
 
+@mixin link ($active) {
+	@include center-content;
+
+	background-color: lighten($color: $color-secondary, $amount: 10%);
+	border: none;
+	border-radius: .5rem;
+	color: $color-grey-light-1;
+	font-size: 1.6rem;
+	font-weight: 600;
+	padding: 1.25rem 0;
+	margin-bottom: 1.5rem;
+
+	transition: all .5s ease;
+
+	&:hover {
+		background-color: $color-secondary;
+		cursor: pointer;
+	}
+
+	@media (min-width: $bp-medium) {
+		width: 100%;
+	}
+
+	&-active {
+		background-color: $color-secondary;
+		color: $color-grey-light-1;
+	}
+}
+
 //* Sidebar Component
 .sidebar {
 	@include flex-center;
@@ -180,26 +209,31 @@
 	}
 
 	&__link {
-		@include center-content;
+		@include link($active: false);
+		// @include center-content;
 
-		background-color: lighten($color: $color-secondary, $amount: 10%);
-		border: none;
-		border-radius: .5rem;
-		color: $color-grey-light-1;
-		font-size: 1.6rem;
-		font-weight: 600;
-		padding: 1.25rem 0;
-		margin-bottom: 1.5rem;
+		// background-color: lighten($color: $color-secondary, $amount: 10%);
+		// border: none;
+		// border-radius: .5rem;
+		// color: $color-grey-light-1;
+		// font-size: 1.6rem;
+		// font-weight: 600;
+		// padding: 1.25rem 0;
+		// margin-bottom: 1.5rem;
 
-		transition: all .5s ease;
+		// transition: all .5s ease;
 
-		&:hover {
-			background-color: $color-secondary;
-			cursor: pointer;
-		}
+		// &:hover {
+		// 	background-color: $color-secondary;
+		// 	cursor: pointer;
+		// }
 
-		@media (min-width: $bp-medium) {
-			width: 100%;
+		// @media (min-width: $bp-medium) {
+		// 	width: 100%;
+		// }
+
+		&-active {
+			@include link($active: true);
 		}
 	}
 

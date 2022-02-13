@@ -14,12 +14,10 @@ import {
 } from 'firebase/auth';
 
 import {
+	addDoc,
+	collection,
+	doc,
 	getFirestore,
-	// query,
-	// getDocs,
-	// collection,
-	// where,
-	// addDoc,
 } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -40,10 +38,13 @@ const googleAuthProvider = new GoogleAuthProvider();
 const checkAuth = (callback: NextOrObserver<User | null>) => auth.onAuthStateChanged(callback);
 
 export {
+	addDoc,
 	auth,
-	db,
 	checkAuth,
+	collection,
 	createUserWithEmailAndPassword,
+	db,
+	doc,
 	googleAuthProvider,
 	onAuthStateChanged,
 	signInWithEmailAndPassword,

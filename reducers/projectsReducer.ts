@@ -1,7 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import type { RootState } from '../store/store';
-import { ProjectInterface, TaskInterface } from '../interfaces';
+import { addDoc, collection, db, doc } from '../firebase/config';
+import { AppDispatch, AppThunk, RootState } from '../store/store';
+import { openCloseForm } from './uiReducer';
+import { ProjectInterface } from '../interfaces';
 
 export type ProjectsState = {
 	projects: ProjectInterface[];
@@ -54,6 +56,32 @@ export const {
 	setActiveProject
 } = projectsSlice.actions;
 
+//* Start create new project
+export const startNewProject = (title: string): AppThunk => {
+	return async (dispatch: AppDispatch, getState) => {
+		const { uid } = getState().auth;
+
+		try {
+			const userProjectsColRef = await addDoc(
+				collection(db, `${ uid }/mytasks/projects`),
+				{ title }
+			);
+
+			const newProject: ProjectInterface = {
+				id: userProjectsColRef.id,
+				title,
+			};
+
+			dispatch( addProject(newProject) );
+			dispatch( setActiveProject(newProject.id) );
+			dispatch( openCloseForm() );
+		} catch (error) {
+			console.log(error);
+		}
+	}
+}
+
+//* Selectors
 export const getProjects = (state: RootState) => state.projects.projects;
 export const getActiveProject = (state: RootState) => state.projects.activeProject;
 

@@ -15,7 +15,7 @@ const SidebarLink = ({ id, title }: ProjectInterface) => {
 
 	return (
 		<button
-			className='sidebar__link'
+			className='sidebar__link-active'
 			onClick={ setActiveProjectHandler }
 		>
 			{
