@@ -36,10 +36,8 @@
 @mixin link ($active) {
 	@include center-content;
 
-	background-color: lighten($color: $color-secondary, $amount: 10%);
 	border: none;
 	border-radius: .5rem;
-	color: $color-grey-light-1;
 	font-size: 1.6rem;
 	font-weight: 600;
 	padding: 1.25rem 0;
@@ -47,18 +45,26 @@
 
 	transition: all .5s ease;
 
-	&:hover {
-		background-color: $color-secondary;
-		cursor: pointer;
-	}
-
 	@media (min-width: $bp-medium) {
 		width: 100%;
 	}
 
-	&-active {
+	@if $active {
+		background-color: $color-primary;
+		color: $color-grey-light-1;
+
+		&:hover {
+			background-color: $color-secondary;
+			cursor: pointer;
+		}
+	} @else {
 		background-color: $color-secondary;
 		color: $color-grey-light-1;
+
+		&:hover {
+			background-color: $color-primary;
+			cursor: pointer;
+		}
 	}
 }
 
@@ -210,27 +216,6 @@
 
 	&__link {
 		@include link($active: false);
-		// @include center-content;
-
-		// background-color: lighten($color: $color-secondary, $amount: 10%);
-		// border: none;
-		// border-radius: .5rem;
-		// color: $color-grey-light-1;
-		// font-size: 1.6rem;
-		// font-weight: 600;
-		// padding: 1.25rem 0;
-		// margin-bottom: 1.5rem;
-
-		// transition: all .5s ease;
-
-		// &:hover {
-		// 	background-color: $color-secondary;
-		// 	cursor: pointer;
-		// }
-
-		// @media (min-width: $bp-medium) {
-		// 	width: 100%;
-		// }
 
 		&-active {
 			@include link($active: true);

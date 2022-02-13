@@ -1,11 +1,12 @@
-import { useAppDispatch } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { ProjectInterface } from '../../interfaces';
 
-import { setActiveProject } from '../../reducers/projectsReducer';
+import { setActiveProject, getActiveProject } from '../../reducers/projectsReducer';
 import { getTasks } from '../../reducers/tasksReducer';
 
 const SidebarLink = ({ id, title }: ProjectInterface) => {
 	const dispatch = useAppDispatch();
+	const activeProject = useAppSelector(getActiveProject);
 
 	//* Set active project
 	const setActiveProjectHandler = () => {
@@ -15,7 +16,7 @@ const SidebarLink = ({ id, title }: ProjectInterface) => {
 
 	return (
 		<button
-			className='sidebar__link-active'
+			className={ `sidebar__link${ activeProject?.id === id ? '-active' : '' }` }
 			onClick={ setActiveProjectHandler }
 		>
 			{
