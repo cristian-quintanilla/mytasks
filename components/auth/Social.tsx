@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { BsGoogle, BsFacebook, BsTwitter } from 'react-icons/bs';
 
 import { useAppDispatch } from '../../store/hooks';
@@ -5,6 +6,7 @@ import { startLoginGoogle } from '../../reducers/authReducer';
 
 const Social = () => {
 	const dispatch = useAppDispatch();
+	const router = useRouter();
 
 	//* Google
 	const googleLogin = () => {

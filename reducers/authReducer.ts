@@ -9,6 +9,7 @@ import {
 	googleAuthProvider,
 	signInWithEmailAndPassword,
 	signInWithPopup,
+	signOut,
 	updateProfile,
 } from '../firebase/config';
 
@@ -47,15 +48,15 @@ export const authSlice = createSlice({
 			state.name = name;
 		},
 		logout: (state) => {
-			console.log('logout');
+			state.uid = '';
+			state.name = '';
 		},
 	},
 });
 
-// https://github.com/atharvadeosthale/firebase-auth-article/blob/master/src/firebase.js
-
 export const { login, logout } = authSlice.actions;
 
+//* Start Google Login
 export const startLoginGoogle = (): AppThunk => {
 	return async (dispatch: AppDispatch) => {
 		try {
@@ -69,6 +70,7 @@ export const startLoginGoogle = (): AppThunk => {
 	}
 }
 
+//* Start Register with Email and Password
 export const startRegisterWithEmailAndPassword = (newUser: NewUserInterface): AppThunk => {
 	const { name, email, password } = newUser;
 
@@ -99,6 +101,7 @@ export const startRegisterWithEmailAndPassword = (newUser: NewUserInterface): Ap
 	}
 }
 
+//* Start Login with Email and Password
 export const startLoginWithEmailAndPassword = (records: LoginRecordsInterface): AppThunk => {
 	const { email, password } = records;
 
@@ -130,6 +133,16 @@ export const startLoginWithEmailAndPassword = (records: LoginRecordsInterface): 
 	}
 }
 
+//* Start Sign Out
+export const startSignOut = (): AppThunk => {
+	return async (dispatch: AppDispatch) => {
+		await signOut(auth);
+
+		dispatch( authSlice.actions.logout() );
+	}
+}
+
+//* Get Authenticated User
 export const getUser = (state: RootState) => {
 	const user = {
 		uid: state.auth.uid,

@@ -1,15 +1,15 @@
 import { initializeApp } from 'firebase/app';
 
 import {
+	createUserWithEmailAndPassword,
 	getAuth,
 	GoogleAuthProvider,
-	signInWithPopup,
-	signInWithEmailAndPassword,
-	createUserWithEmailAndPassword,
-	// signOut,
-	updateProfile,
-	onAuthStateChanged,
 	NextOrObserver,
+	onAuthStateChanged,
+	signInWithEmailAndPassword,
+	signInWithPopup,
+	signOut,
+	updateProfile,
 	User,
 } from 'firebase/auth';
 
@@ -36,16 +36,18 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const googleAuthProvider = new GoogleAuthProvider();
+
 const checkAuth = (callback: NextOrObserver<User | null>) => auth.onAuthStateChanged(callback);
 
 export {
 	auth,
 	db,
+	checkAuth,
 	createUserWithEmailAndPassword,
 	googleAuthProvider,
+	onAuthStateChanged,
 	signInWithEmailAndPassword,
 	signInWithPopup,
+	signOut,
 	updateProfile,
-	onAuthStateChanged,
-	checkAuth
 }

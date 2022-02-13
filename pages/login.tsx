@@ -9,11 +9,11 @@ import AlertError from '../components/ui/AlertError';
 import InputForm from '../components/auth/InputForm';
 import Social from '../components/auth/Social';
 
-import { checkAuth } from '../firebase/config';
 import { getLoading } from '../reducers/uiReducer';
-import { login, startLoginWithEmailAndPassword } from '../reducers/authReducer';
+import { startLoginWithEmailAndPassword } from '../reducers/authReducer';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { useForm } from '../hooks/useForm';
+import useAuth from '../hooks/useAuth';
 import validateLogin from '../validation/validateLogin';
 
 const INITIAL_STATE = {
@@ -25,6 +25,7 @@ const LoginPage = () => {
 	const dispatch = useAppDispatch();
 	const loading = useAppSelector(getLoading);
 	const router = useRouter();
+	const { isLoggedIn } = useAuth();
 
 	const { values, errors, handleBlur, handleInputChange, onSubmit } = useForm(
 		INITIAL_STATE,
@@ -36,18 +37,10 @@ const LoginPage = () => {
 
 	//* User is logged in
 	useEffect(() => {
-		checkAuth(async (user) => {
-			if (user?.uid) {
-				const { uid, displayName } = user;
-
-				dispatch( login({ uid, name: displayName || '' }) );
-				// TODO: Start Loading Projects
-				// dispatch( startLoadingNotes(uid) );
-
-				router.push('/projects');
-			}
-		});
-	}, [dispatch, router]);
+		if (isLoggedIn) {
+			router.replace('/projects', '/projects', { shallow: true });
+		}
+	}, [isLoggedIn, router]);
 
 	//* Login
 	async function loginUser() {
@@ -57,7 +50,6 @@ const LoginPage = () => {
 		}
 
 		dispatch( startLoginWithEmailAndPassword(records) );
-		router.replace('/projects', '/projects', { shallow: true });
 	}
 
 	return (
