@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { addDoc, collection, db, doc } from '../firebase/config';
+import { addDoc, collection, db } from '../firebase/config';
 import { AppDispatch, AppThunk, RootState } from '../store/store';
+import { loadProjects } from '../helpers/loadProjects';
 import { openCloseForm } from './uiReducer';
 import { ProjectInterface } from '../interfaces';
 
@@ -11,20 +12,7 @@ export type ProjectsState = {
 };
 
 const initialState: ProjectsState = {
-	projects: [
-		{
-			id: 'project-1',
-			title: 'Proyecto 1',
-		},
-		{
-			id: 'project-4',
-			title: 'Proyecto 2',
-		},
-		{
-			id: 'project-5',
-			title: 'Proyecto 3',
-		},
-	],
+	projects: [],
 	activeProject: null,
 };
 
@@ -35,6 +23,10 @@ export const projectsSlice = createSlice({
 		addProject: (state, action: PayloadAction<ProjectInterface>) => {
 			state.projects = [ action.payload, ...state.projects ];
 		},
+		editProject: (state, action: PayloadAction<ProjectInterface>) => {
+			state.projects = state.projects.map(project => project.id === action.payload.id ? action.payload : project);
+			state.activeProject = state.activeProject?.id === action.payload.id ? action.payload : state.activeProject;
+		},
 		removeProject: (state, action: PayloadAction<string>) => {
 			state.projects = state.projects.filter(project => project.id !== action.payload);
 			state.activeProject = null;
@@ -42,9 +34,8 @@ export const projectsSlice = createSlice({
 		setActiveProject: (state, action: PayloadAction<string>) => {
 			state.activeProject = state.projects.find(project => project.id === action.payload) || null;
     },
-		editProject: (state, action: PayloadAction<ProjectInterface>) => {
-			state.projects = state.projects.map(project => project.id === action.payload.id ? action.payload : project);
-			state.activeProject = state.activeProject?.id === action.payload.id ? action.payload : state.activeProject;
+		setProjects: (state, action: PayloadAction<ProjectInterface[]>) => {
+			state.projects = action.payload;
 		}
 	},
 });
@@ -53,7 +44,8 @@ export const {
 	addProject,
 	editProject,
 	removeProject,
-	setActiveProject
+	setActiveProject,
+	setProjects,
 } = projectsSlice.actions;
 
 //* Start create new project
@@ -78,6 +70,14 @@ export const startNewProject = (title: string): AppThunk => {
 		} catch (error) {
 			console.log(error);
 		}
+	}
+}
+
+//* Start loading projects
+export const startLoadingProjects = (uid: string): AppThunk => {
+	return async (dispatch: AppDispatch) => {
+		const projects = await loadProjects(uid);
+		dispatch( setProjects(projects) );
 	}
 }
 

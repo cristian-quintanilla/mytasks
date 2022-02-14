@@ -17,6 +17,7 @@ import {
 	addDoc,
 	collection,
 	doc,
+	getDocs,
 	getFirestore,
 } from 'firebase/firestore';
 
@@ -45,6 +46,7 @@ export {
 	createUserWithEmailAndPassword,
 	db,
 	doc,
+	getDocs,
 	googleAuthProvider,
 	onAuthStateChanged,
 	signInWithEmailAndPassword,
