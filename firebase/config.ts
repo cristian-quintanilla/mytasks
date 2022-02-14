@@ -16,6 +16,7 @@ import {
 import {
 	addDoc,
 	collection,
+	deleteDoc,
 	doc,
 	getDocs,
 	getFirestore,
@@ -45,6 +46,7 @@ export {
 	collection,
 	createUserWithEmailAndPassword,
 	db,
+	deleteDoc,
 	doc,
 	getDocs,
 	googleAuthProvider,

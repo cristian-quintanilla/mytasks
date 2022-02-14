@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
+import Swal from 'sweetalert2';
 
 import Task from '../tasks/Task';
 
 import { ProjectInterface } from '../../interfaces';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { editProject, removeProject } from '../../reducers/projectsReducer';
+import { editProject, startRemovingProject } from '../../reducers/projectsReducer';
 import { getTasksProject } from '../../reducers/tasksReducer';
 
 const TasksList = (project: ProjectInterface) => {
@@ -26,7 +27,24 @@ const TasksList = (project: ProjectInterface) => {
 
 	//* Remove project
 	function remove() {
-		dispatch( removeProject(project.id) );
+		const swalWithBootstrapButtons = Swal.mixin({
+			customClass: {
+				confirmButton: 'swal__button swal__button--confirm',
+				denyButton: 'swal__button swal__button--deny',
+			},
+			buttonsStyling: false,
+		});
+
+		swalWithBootstrapButtons.fire({
+			title: '<h1 class="h6 mb-sm">Do you want to remove the project?</h1>',
+			showDenyButton: true,
+			confirmButtonText: 'Remove',
+			denyButtonText: `Don't Remove`,
+		}).then((result) => {
+			if (result.isConfirmed) {
+				dispatch( startRemovingProject(project.id) );
+			}
+		});
 	}
 
 	//* Edit Project
