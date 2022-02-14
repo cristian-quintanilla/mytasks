@@ -1,4 +1,3 @@
-import React from 'react';
 import { FaPlus } from 'react-icons/fa';
 
 import AlertError from '../ui/AlertError';
@@ -6,9 +5,8 @@ import AlertError from '../ui/AlertError';
 import validateProject from '../../validation/validateProject';
 import { useForm } from '../../hooks/useForm';
 
-import { ProjectInterface } from '../../interfaces';
 import { useAppDispatch } from '../../store/hooks';
-import { addProject, startNewProject } from '../../reducers/projectsReducer';
+import { startNewProject } from '../../reducers/projectsReducer';
 
 const INITIAL_STATE = {
 	title: '',

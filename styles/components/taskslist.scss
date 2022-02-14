@@ -50,7 +50,7 @@
 		margin-top: 1rem;
 		width: 100%;
 
-		&-edit {
+		&--edit {
 			display: flex;
 			gap: 1rem;
 
@@ -80,11 +80,11 @@
 			}
 		}
 
-		&-input-error {
+		&--error {
 			@include input($error: true);
 		}
 
-		&-input {
+		&--input {
 			@include input($error: false);
 		}
 	}

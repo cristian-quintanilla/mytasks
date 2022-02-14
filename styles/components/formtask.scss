@@ -18,7 +18,7 @@
 		align-items: center;
 		gap: 1rem;
 
-		&-input {
+		&--input {
 			background-color: $color-grey-light-1;
 			border: none;
 			border-radius: .5rem;
@@ -30,7 +30,7 @@
 			width: 50%;
 		}
 
-		&-button {
+		&--button {
 			background-color: lighten($color: $color-secondary, $amount: 10%);
 			border: none;
 			border-radius: .5rem;

@@ -11,12 +11,12 @@ interface Props {
 
 const InputForm = ({ id, label, name, placeholder, type, value, onBlur, onChange }: Props): JSX.Element => (
 	<>
-		<label htmlFor={ id } className='login__form-group-label'>
+		<label htmlFor={ id } className='auth-form__label'>
 			{ label }
 		</label>
 
 		<input
-			className='login__form-group-input'
+			className='auth-form__input'
 			autoComplete='off'
 			type={ type }
 			id={ id }

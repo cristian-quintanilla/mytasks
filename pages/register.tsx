@@ -51,8 +51,8 @@ const RegisterPage = () => {
 			</Head>
 
 			<div className='container'>
-				<section className='register'>
-					<section className='register__login'>
+				<section className='auth'>
+					<section className='auth-aside'>
 						<h1 className='h3'>Welcome Back!</h1>
 						<p className='text-light'>
 							To keep connected with us please login with your personal info
@@ -63,10 +63,10 @@ const RegisterPage = () => {
 						</Link>
 					</section>
 
-					<form className='register__form' onSubmit={ onSubmit }>
+					<form className='auth-form' onSubmit={ onSubmit }>
 						<h1 className='h3 uppercase'>Register</h1>
 
-						<section className='register__form-group'>
+						<section className='auth-form__group'>
 							<InputForm
 								id='name'
 								label='Name:'
@@ -81,7 +81,7 @@ const RegisterPage = () => {
 							{ errors.name && <AlertError text={ errors.name } /> }
 						</section>
 
-						<section className='login__form-group'>
+						<section className='auth-form__group'>
 							<InputForm
 								id='email'
 								label='Email:'
@@ -96,7 +96,7 @@ const RegisterPage = () => {
 							{ errors.email && <AlertError text={ errors.email } /> }
 						</section>
 
-						<section className='login__form-group'>
+						<section className='auth-form__group'>
 							<InputForm
 								id='password'
 								label='Password:'
@@ -112,7 +112,7 @@ const RegisterPage = () => {
 						</section>
 
 						<button
-							className='register__form-submit'
+							className='auth-form__submit'
 							type='submit'
 							disabled={ loading || Object.keys(errors).length > 0 }
 						>

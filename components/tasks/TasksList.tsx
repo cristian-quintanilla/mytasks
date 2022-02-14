@@ -58,11 +58,11 @@ const TasksList = (project: ProjectInterface) => {
 					<FaTrashAlt />
 				</button>
 
-				<div className='tasks__options-edit'>
+				<div className='tasks__options--edit'>
 					<input
 						type='text'
 						name='title'
-						className={ titleForm.trim().length < 3 ? 'tasks__options-input-error' : 'tasks__options-input' }
+						className={ titleForm.trim().length < 3 ? 'tasks__options--error' : 'tasks__options--input' }
 						placeholder='Project Title'
 						autoComplete='off'
 						value={ titleForm }
@@ -70,7 +70,7 @@ const TasksList = (project: ProjectInterface) => {
 					/>
 
 					<button
-						className='tasks__options-edit__button'
+						className='tasks__options--edit__button'
 						type='submit'
 						disabled={ titleForm.trim().length < 3 ? true : false }
 						onClick={ edit }

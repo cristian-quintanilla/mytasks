@@ -17,7 +17,9 @@ const Project = () => {
 					</>
 				) : (
 					<section className='tasks'>
-						<h2 className='tasks__title'>No Project. Please select one.</h2>
+						<h2 className='tasks__title'>
+							Please select one project or Start creating one.
+						</h2>
 					</section>
 				)
 			}

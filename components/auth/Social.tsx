@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import { BsGoogle, BsFacebook, BsTwitter } from 'react-icons/bs';
 
 import { useAppDispatch } from '../../store/hooks';
@@ -6,7 +5,6 @@ import { startLoginGoogle } from '../../reducers/authReducer';
 
 const Social = () => {
 	const dispatch = useAppDispatch();
-	const router = useRouter();
 
 	//* Google
 	const googleLogin = () => {
@@ -24,10 +22,10 @@ const Social = () => {
 	}
 
 	return (
-		<section className='login__social'>
+		<section className='auth-form__social'>
 			<button
 				type='button'
-				className='login__social-button'
+				className='auth-form__social--button'
 				onClick={ googleLogin }
 			>
 				<BsGoogle />
@@ -35,7 +33,7 @@ const Social = () => {
 
 			<button
 				type='button'
-				className='login__social-button'
+				className='auth-form__social--button'
 				onClick={ facebookLogin }
 			>
 				<BsFacebook />
@@ -43,7 +41,7 @@ const Social = () => {
 
 			<button
 				type='button'
-				className='login__social-button'
+				className='auth-form__social--button'
 				onClick={ twitterLogin }
 			>
 				<BsTwitter />

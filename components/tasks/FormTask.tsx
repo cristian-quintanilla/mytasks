@@ -35,7 +35,7 @@ const FormTask = () => {
 					type='text'
 					id='task-name'
 					name='task'
-					className='form-task__form-input'
+					className='form-task__form--input'
 					autoComplete='off'
 					placeholder='Task Name'
 					value={ titleForm }
@@ -44,7 +44,7 @@ const FormTask = () => {
 
 				<button
 					type='submit'
-					className='form-task__form-button'
+					className='form-task__form--button'
 					disabled={ titleForm.trim().length < 3 ? true : false }
 					onClick={ addOrEdit }
 				>

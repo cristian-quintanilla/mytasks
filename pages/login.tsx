@@ -59,14 +59,14 @@ const LoginPage = () => {
 			</Head>
 
 			<div className='container'>
-				<section className='login'>
-					<form className='login__form' onSubmit={ onSubmit }>
+				<section className='auth'>
+					<form className='auth-form' onSubmit={ onSubmit }>
 						<h1 className='h3 uppercase'>Login</h1>
 
 						<Social />
 						<p className='text-dark'>or use your account</p>
 
-						<section className='login__form-group'>
+						<section className='auth-form__group'>
 							<InputForm
 								id='email'
 								label='Email:'
@@ -81,7 +81,7 @@ const LoginPage = () => {
 							{ errors.email && <AlertError text={ errors.email } /> }
 						</section>
 
-						<section className='login__form-group'>
+						<section className='auth-form__group'>
 							<InputForm
 								id='password'
 								label='Password:'
@@ -97,7 +97,7 @@ const LoginPage = () => {
 						</section>
 
 						<button
-							className='login__form-submit'
+							className='auth-form__submit'
 							type='submit'
 							disabled={ loading || Object.keys(errors).length > 0 }
 						>
@@ -105,7 +105,7 @@ const LoginPage = () => {
 						</button>
 					</form>
 
-					<section className='login__register'>
+					<section className='auth-aside'>
 						<h1 className='h3'>Hello, Friend!</h1>
 						<p className='text-light'>
 							You don't have an account? You can create one here:
