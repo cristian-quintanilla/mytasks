@@ -16,6 +16,7 @@ import {
 import { AppDispatch, AppThunk, RootState } from '../store/store';
 import { AuthInterface, LoginRecordsInterface, NewUserInterface } from '../interfaces';
 import { startLoading, stopLoading } from './uiReducer';
+import { cleanState } from './projectsReducer';
 
 const initialState: AuthInterface = {
 	uid: '',
@@ -63,7 +64,7 @@ export const startLoginGoogle = (): AppThunk => {
 			const { user } = await signInWithPopup(auth, googleAuthProvider);
 			const { uid, displayName } = user;
 
-			dispatch( authSlice.actions.login({ uid, name: displayName || '' }));
+			dispatch( login({ uid, name: displayName || '' }));
 		} catch (err) {
 			console.log(err);
 		}
@@ -112,7 +113,7 @@ export const startLoginWithEmailAndPassword = (records: LoginRecordsInterface): 
 			const { user } = await signInWithEmailAndPassword(auth, email, password);
 			const { uid, displayName } = user;
 
-			dispatch( authSlice.actions.login({ uid, name: displayName || '' }));
+			dispatch( login({ uid, name: displayName || '' }));
 			dispatch( stopLoading() );
 		} catch (error) {
 			let errorMessage = '';
@@ -138,7 +139,8 @@ export const startSignOut = (): AppThunk => {
 	return async (dispatch: AppDispatch) => {
 		await signOut(auth);
 
-		dispatch( authSlice.actions.logout() );
+		dispatch( logout() );
+		dispatch( cleanState() );
 	}
 }
 
