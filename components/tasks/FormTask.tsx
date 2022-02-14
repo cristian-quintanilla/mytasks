@@ -1,11 +1,10 @@
 import { useState } from 'react';
 
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { getActiveProject } from '../../reducers/projectsReducer';
+import { useAppDispatch } from '../../store/hooks';
+import { startNewTask } from '../../reducers/tasksReducer';
 
 const FormTask = () => {
   const dispatch = useAppDispatch();
-	const project = useAppSelector(getActiveProject);
 
 	const [ titleForm, setTitleForm ] = useState<string>('');
 
@@ -16,14 +15,7 @@ const FormTask = () => {
 
 	//* Add / Edit Task
 	const addOrEdit = () => {
-		const payload = {
-			projectID: project?.id,
-			id: Math.random().toString(),
-			title: titleForm.trim() || '',
-			done: false
-		}
-
-    console.log(payload);
+		dispatch( startNewTask(titleForm) );
 	}
 
 	return (

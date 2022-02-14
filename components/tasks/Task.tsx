@@ -1,3 +1,5 @@
+import { MdRemoveDone, MdOutlineDoneAll } from 'react-icons/md';
+
 interface Props {
 	title: string;
 	done: boolean;
@@ -10,7 +12,9 @@ const Task = ({ title, done }: Props) => {
 
 			<li className='task__options'>
 				<span className={ done ? 'task__complete' : 'task__incomplete' }>
-					{ done ? 'Done' : 'Not done' }
+					{
+						done ? <MdOutlineDoneAll /> : <MdRemoveDone />
+					}
 				</span>
 				<button>Edit</button>
 				<button>Delete</button>

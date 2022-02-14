@@ -5,6 +5,7 @@ import { AppDispatch, AppThunk, RootState } from '../store/store';
 import { loadProjects } from '../helpers/loadProjects';
 import { openCloseForm } from './uiReducer';
 import { ProjectInterface } from '../interfaces';
+import { TaskInterface } from '../interfaces/index';
 
 export type ProjectsState = {
 	projects: ProjectInterface[];
@@ -53,19 +54,19 @@ export const {
 	cleanState,
 } = projectsSlice.actions;
 
-//* Start create new project
+//* Start creating new project
 export const startNewProject = (title: string): AppThunk => {
 	return async (dispatch: AppDispatch, getState) => {
 		const { uid } = getState().auth;
 
 		try {
-			const userProjectsColRef = await addDoc(
+			const userProjectsRef = await addDoc(
 				collection(db, `${ uid }/mytasks/projects`),
 				{ title }
 			);
 
 			const newProject: ProjectInterface = {
-				id: userProjectsColRef.id,
+				id: userProjectsRef.id,
 				title,
 			};
 
