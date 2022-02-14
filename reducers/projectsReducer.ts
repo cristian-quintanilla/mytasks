@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { addDoc, collection, db, deleteDoc, doc } from '../firebase/config';
+import { addDoc, collection, db, deleteDoc, doc, updateDoc } from '../firebase/config';
 import { AppDispatch, AppThunk, RootState } from '../store/store';
 import { loadProjects } from '../helpers/loadProjects';
 import { openCloseForm } from './uiReducer';
@@ -90,9 +90,23 @@ export const startLoadingProjects = (uid: string): AppThunk => {
 export const startRemovingProject = (id: string): AppThunk => {
 	return async (dispatch: AppDispatch, getState) => {
 		const { uid } = getState().auth;
-		await deleteDoc(doc(db, `${ uid }/mytasks/projects/${ id }`));
+		const documentRef = doc(db, `${ uid }/mytasks/projects/${ id }`);
 
+		await deleteDoc(documentRef);
 		dispatch( removeProject(id) );
+	}
+}
+
+//* Start editing project
+export const startEditingProject = (project: ProjectInterface): AppThunk => {
+	const { id, title } = project;
+
+	return async (dispatch: AppDispatch, getState) => {
+		const { uid } = getState().auth;
+		const documentRef = doc(db, `${ uid }/mytasks/projects/${ id }`);
+
+		await updateDoc(documentRef, { title });
+		dispatch( editProject(project) );
 	}
 }
 

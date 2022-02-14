@@ -6,7 +6,7 @@ import Task from '../tasks/Task';
 
 import { ProjectInterface } from '../../interfaces';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { editProject, startRemovingProject } from '../../reducers/projectsReducer';
+import { startEditingProject, startRemovingProject } from '../../reducers/projectsReducer';
 import { getTasksProject } from '../../reducers/tasksReducer';
 
 const TasksList = (project: ProjectInterface) => {
@@ -49,8 +49,12 @@ const TasksList = (project: ProjectInterface) => {
 
 	//* Edit Project
 	function edit() {
-		const editProjectData: ProjectInterface = { ...project, title: titleForm };
-		dispatch( editProject(editProjectData) );
+		const editProjectData: ProjectInterface = {
+			...project,
+			title: titleForm
+		};
+
+		dispatch( startEditingProject(editProjectData) );
 	}
 
 	return (

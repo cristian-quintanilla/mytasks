@@ -20,6 +20,7 @@ import {
 	doc,
 	getDocs,
 	getFirestore,
+	updateDoc,
 } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -54,5 +55,6 @@ export {
 	signInWithEmailAndPassword,
 	signInWithPopup,
 	signOut,
+	updateDoc,
 	updateProfile,
 }
