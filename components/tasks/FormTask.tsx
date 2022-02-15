@@ -16,6 +16,7 @@ const FormTask = () => {
 	//* Add / Edit Task
 	const addOrEdit = () => {
 		dispatch( startNewTask(titleForm) );
+		setTitleForm('');
 	}
 
 	return (

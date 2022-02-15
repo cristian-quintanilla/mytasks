@@ -25,6 +25,10 @@ export const tasksSlice = createSlice({
 		cleanActualTask: (state) => {
 			state.activeTask = null;
 		},
+		editTask: (state, action: PayloadAction<TaskInterface>) => {
+			state.tasks = state.tasks.map(task => task.id === action.payload.id ? action.payload : task);
+			// state.activeTask = state.activeTask?.id === action.payload.id ? action.payload : state.activeTask;
+		},
 		setTasks: (state, action: PayloadAction<TaskInterface>) => {
 			state.tasks = [ action.payload,  ...state.tasks ];
 		},
@@ -38,7 +42,14 @@ export const tasksSlice = createSlice({
 	},
 });
 
-export const { setTasks, setTasksProject, cleanActualTask, cleanTasks } = tasksSlice.actions;
+export const {
+	setActualTask,
+	cleanActualTask,
+	editTask,
+	setTasks,
+	setTasksProject,
+	cleanTasks
+} = tasksSlice.actions;
 
 //* Start loading tasks for project
 export const getTasks = (id: string): AppThunk => {
@@ -50,7 +61,7 @@ export const getTasks = (id: string): AppThunk => {
 	};
 }
 
-//* Start creating new tasks
+//* Start creating new task
 export const startNewTask = (title: string): AppThunk => {
 	return async (dispatch: AppDispatch, getState) => {
 		const { id } = getState().projects.activeProject || {};
@@ -78,6 +89,19 @@ export const startNewTask = (title: string): AppThunk => {
 		} catch (error) {
 			console.log(error);
 		}
+	}
+}
+
+//* Start editing task
+export const startEditingTask = (task: TaskInterface): AppThunk => {
+	const { id, done, title } = task;
+
+	return async (dispatch: AppDispatch, getState) => {
+		const { uid } = getState().auth;
+		const documentRef = doc(db, `${ uid }/mytasks/tasks/${ id }`);
+
+		await updateDoc(documentRef, { done, title });
+		dispatch( editTask(task) );
 	}
 }
 
