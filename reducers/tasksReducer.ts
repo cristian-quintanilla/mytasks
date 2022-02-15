@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { addDoc, collection, db, deleteDoc, doc, updateDoc } from '../firebase/config';
 import { AppDispatch, AppThunk, RootState } from '../store/store';
 import { TaskInterface } from '../interfaces';
+import { loadTasks } from '../helpers/loadTasks';
 
 export type TasksState = {
 	tasks: TaskInterface[];
@@ -30,30 +31,24 @@ export const tasksSlice = createSlice({
 		setTasksProject: (state, action: PayloadAction<TaskInterface[]>) => {
 			state.tasks = action.payload;
 		},
+		cleanTasks: (state) => {
+			state.tasks = [];
+			state.activeTask = null;
+		}
 	},
 });
 
-export const { setTasks, setTasksProject, cleanActualTask } = tasksSlice.actions;
+export const { setTasks, setTasksProject, cleanActualTask, cleanTasks } = tasksSlice.actions;
 
-//* TODO: Start loading tasks for project
-export const getTasks = (id: string): AppThunk => async (dispatch: AppDispatch) => {
-	const tasks: TaskInterface[] = [
-		{
-			id: 'task-1',
-			title: 'Tarea 1',
-			done: false,
-			project: id,
-		},
-		{
-			id: 'task-2',
-			title: 'Tarea 2  XD',
-			done: true,
-			project: id,
-		},
-	];
+//* Start loading tasks for project
+export const getTasks = (id: string): AppThunk => {
+	return async (dispatch: AppDispatch, getState) => {
+		const { uid } = getState().auth;
 
-	dispatch(setTasksProject(tasks));
-};
+		const tasks = await loadTasks(uid, id);
+		dispatch( setTasksProject(tasks) );
+	};
+}
 
 //* Start creating new tasks
 export const startNewTask = (title: string): AppThunk => {
@@ -85,7 +80,6 @@ export const startNewTask = (title: string): AppThunk => {
 		}
 	}
 }
-
 
 export const getTasksProject = (state: RootState) => state.tasks.tasks;
 

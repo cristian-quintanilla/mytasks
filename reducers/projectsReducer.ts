@@ -38,7 +38,7 @@ export const projectsSlice = createSlice({
 		setProjects: (state, action: PayloadAction<ProjectInterface[]>) => {
 			state.projects = action.payload;
 		},
-		cleanState: (state) => {
+		cleanProjects: (state) => {
 			state.projects = [];
 			state.activeProject = null;
 		}
@@ -51,7 +51,7 @@ export const {
 	removeProject,
 	setActiveProject,
 	setProjects,
-	cleanState,
+	cleanProjects,
 } = projectsSlice.actions;
 
 //* Start creating new project

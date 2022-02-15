@@ -16,7 +16,8 @@ import {
 import { AppDispatch, AppThunk, RootState } from '../store/store';
 import { AuthInterface, LoginRecordsInterface, NewUserInterface } from '../interfaces';
 import { startLoading, stopLoading } from './uiReducer';
-import { cleanState } from './projectsReducer';
+import { cleanProjects } from './projectsReducer';
+import { cleanTasks } from './tasksReducer';
 
 const initialState: AuthInterface = {
 	uid: '',
@@ -140,7 +141,8 @@ export const startSignOut = (): AppThunk => {
 		await signOut(auth);
 
 		dispatch( logout() );
-		dispatch( cleanState() );
+		dispatch( cleanProjects() );
+		dispatch( cleanTasks() );
 	}
 }
 

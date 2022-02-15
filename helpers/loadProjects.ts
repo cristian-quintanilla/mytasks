@@ -1,5 +1,5 @@
 import { db, collection, getDocs } from '../firebase/config';
-import { ProjectInterface } from '../interfaces/index';
+import { ProjectInterface } from '../interfaces';
 
 export const loadProjects = async (uid: string) => {
 	const projects: ProjectInterface[] = [];

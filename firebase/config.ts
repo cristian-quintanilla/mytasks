@@ -20,7 +20,9 @@ import {
 	doc,
 	getDocs,
 	getFirestore,
+	query,
 	updateDoc,
+	where,
 } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -55,6 +57,8 @@ export {
 	signInWithEmailAndPassword,
 	signInWithPopup,
 	signOut,
+	query,
 	updateDoc,
 	updateProfile,
+	where,
 }
