@@ -160,7 +160,7 @@
 		}
 
 		&-head {
-			display: block;
+			display: flex;
 			margin-bottom: 2rem;
 
 			@media (min-width: $bp-medium) {
@@ -172,7 +172,6 @@
 				display: flex;
 				flex-wrap: wrap;
 				text-transform: uppercase;
-				width: 50%;
 			}
 
 			&--close {

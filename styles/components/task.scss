@@ -3,6 +3,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	gap: 1.5rem;
 }
 
 @mixin task-status($complete) {
@@ -70,6 +71,11 @@
 //* Styles
 .task {
 	@include center-content;
+	flex-direction: column;
+
+	@media (min-width: $bp-medium) {
+		flex-direction: row;
+	}
 
 	background-color: lighten($color: $color-grey-light-1, $amount: 7%);
 	box-shadow: 5px 5px 10px -5px rgba(0, 0, 0, 0.50);
@@ -93,7 +99,7 @@
 
 	&__options {
 		@include center-content;
-		gap: 1rem;
+		flex-direction: row;
 
 		:nth-child(2) {
 			@include button(true);

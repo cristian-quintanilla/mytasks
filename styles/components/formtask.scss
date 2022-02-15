@@ -27,7 +27,11 @@
 			font-size: 1.5rem;
 			outline: none;
 			padding: 1.15rem 1.75rem;
-			width: 50%;
+			width: 75%;
+
+			@media (min-width: $bp-medium) {
+				width: 50%;
+			}
 		}
 
 		&--button {
@@ -38,8 +42,7 @@
 			font-size: 1.6rem;
 			font-weight: 400;
 			padding: 1.25rem 0;
-			width: 50%;
-
+			width: 75%;
 			transition: all .5s ease;
 
 			&:hover {
@@ -51,6 +54,10 @@
 				border: 2px solid darken($color: $color-secondary, $amount: 10%);
 				background-color: $color-grey-light-1;
 				color: darken($color: $color-secondary, $amount: 10%);
+			}
+
+			@media (min-width: $bp-medium) {
+				width: 50%;
 			}
 		}
 	}

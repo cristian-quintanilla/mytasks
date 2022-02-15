@@ -97,7 +97,7 @@ const TasksList = (project: ProjectInterface) => {
 						disabled={ titleForm.trim().length < 3 ? true : false }
 						onClick={ handleEdit }
 					>
-						Edit Project
+						Edit
 						<FaPencilAlt />
 					</button>
 				</div>

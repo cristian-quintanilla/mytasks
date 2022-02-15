@@ -60,7 +60,7 @@ const FormTask = () => {
 					name='task'
 					className='form-task__form--input'
 					autoComplete='off'
-					placeholder='Task Name'
+					placeholder='Task Title'
 					value={ titleForm }
 					onChange={ handleInputChange }
 				/>

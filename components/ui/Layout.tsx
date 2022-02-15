@@ -51,9 +51,9 @@ const Layout = () => {
 									 <FaTimes />
 								 </button>
 								</div>
-
-								<h1 className='h3'>My Tasks</h1>
 							</div>
+
+							<h1 className='h3'>My Tasks</h1>
 						</div>
 
 						{/* MENU */}
