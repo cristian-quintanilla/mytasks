@@ -19,7 +19,7 @@ export const tasksSlice = createSlice({
 	name: 'tasks',
 	initialState,
 	reducers: {
-		setActualTask: (state, action: PayloadAction<TaskInterface>) => {
+		setActiveTask: (state, action: PayloadAction<TaskInterface>) => {
 			state.activeTask = action.payload;
 		},
 		cleanActualTask: (state) => {
@@ -27,7 +27,6 @@ export const tasksSlice = createSlice({
 		},
 		editTask: (state, action: PayloadAction<TaskInterface>) => {
 			state.tasks = state.tasks.map(task => task.id === action.payload.id ? action.payload : task);
-			// state.activeTask = state.activeTask?.id === action.payload.id ? action.payload : state.activeTask;
 		},
 		setTasks: (state, action: PayloadAction<TaskInterface>) => {
 			state.tasks = [ action.payload,  ...state.tasks ];
@@ -43,7 +42,7 @@ export const tasksSlice = createSlice({
 });
 
 export const {
-	setActualTask,
+	setActiveTask,
 	cleanActualTask,
 	editTask,
 	setTasks,
@@ -106,5 +105,6 @@ export const startEditingTask = (task: TaskInterface): AppThunk => {
 }
 
 export const getTasksProject = (state: RootState) => state.tasks.tasks;
+export const getActiveTask = (state: RootState) => state.tasks.activeTask;
 
 export default tasksSlice.reducer;

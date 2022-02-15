@@ -2,11 +2,11 @@ import { MdRemoveDone, MdOutlineDoneAll } from 'react-icons/md';
 
 import { TaskInterface } from '../../interfaces';
 import { useAppDispatch } from '../../store/hooks';
-import { startEditingTask } from '../../reducers/tasksReducer';
+import { setActiveTask, startEditingTask } from '../../reducers/tasksReducer';
 
 const Task = (task: TaskInterface) => {
 	const dispatch = useAppDispatch();
-	const { id, done, project, title } = task;
+	const { done, title } = task;
 
 	//* Mark task as done or not done
 	const handleDone = () => {
@@ -16,6 +16,11 @@ const Task = (task: TaskInterface) => {
 		}
 
 		dispatch( startEditingTask(taskEdit) );
+	}
+
+	//* Set active task to be edited
+	const handleEdit = () => {
+		dispatch( setActiveTask(task) );
 	}
 
 	return (
@@ -30,7 +35,7 @@ const Task = (task: TaskInterface) => {
 					{ done ? <MdOutlineDoneAll /> : <MdRemoveDone /> }
 				</span>
 
-				<button>Edit</button>
+				<button onClick={ handleEdit }>Edit</button>
 				<button>Delete</button>
 			</li>
 		</ul>
