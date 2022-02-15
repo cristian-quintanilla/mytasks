@@ -6,44 +6,34 @@
 	gap: 1.5rem;
 }
 
-@mixin task-status($complete) {
+@mixin task-status ($complete) {
 	display: flex;
 	align-items: center;
 	border-radius: .5rem;
-	font-size: 2rem;
 	font-weight: 700;
 	padding: 0.45rem 1rem;
 	text-transform: uppercase;
 	cursor: pointer;
 	transition: all .2s ease-in-out;
 
+
 	@if $complete {
 		border: 2px solid #4AA96C;
 
+		svg { fill: #4AA96C }
+
 		&:hover {
 			background: #4AA96C;
-
-			svg {
-				fill: $color-grey-light-1;
-			}
-		}
-
-		svg {
-			fill: #4AA96C
+			svg { fill: $color-grey-light-1; }
 		}
 	} @else {
 		border: 2px solid #F55C47;
 
+		svg { fill: #F55C47; }
+
 		&:hover {
 			background: #F55C47;
-
-			svg {
-				fill: $color-grey-light-1;
-			}
-		}
-
-		svg {
-			fill: #F55C47;
+			svg { fill: $color-grey-light-1; }
 		}
 	}
 }
@@ -51,7 +41,7 @@
 @mixin button($edit) {
 	border: none;
 	border-radius: .5rem;
-	font-size: 1.4rem;
+	// font-size: 1.4rem;
 	font-weight: 600;
 	padding: 0.85rem 1.5rem;
 	outline: none;
@@ -72,8 +62,10 @@
 .task {
 	@include center-content;
 	flex-direction: column;
+	font-size: 2.2rem;
 
 	@media (min-width: $bp-medium) {
+		font-size: 1.8rem;
 		flex-direction: row;
 	}
 
@@ -92,7 +84,7 @@
 	}
 
 	&__title {
-		font-size: 1.6em;
+		// font-size: 1.6em;
 		font-weight: 200;
 		text-transform: uppercase;
 	}

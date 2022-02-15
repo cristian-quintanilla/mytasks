@@ -38,7 +38,7 @@
 
 	border: none;
 	border-radius: .5rem;
-	font-size: 1.6rem;
+	font-size: 1.8rem;
 	font-weight: 600;
 	padding: 1.25rem 0;
 	margin-bottom: 1.5rem;
@@ -46,6 +46,7 @@
 	transition: all .5s ease;
 
 	@media (min-width: $bp-medium) {
+		font-size: 1.6rem;
 		width: 100%;
 	}
 
@@ -276,7 +277,7 @@
 }
 
 .projects-title {
-	font-size: 2.2rem;
+	font-size: 2.3rem;
 	font-weight: 100;
 	text-transform: uppercase;
 	margin-bottom: 2rem;
