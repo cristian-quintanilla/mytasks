@@ -1,12 +1,13 @@
 import { MdRemoveDone, MdOutlineDoneAll } from 'react-icons/md';
+import Swal from 'sweetalert2';
 
 import { TaskInterface } from '../../interfaces';
 import { useAppDispatch } from '../../store/hooks';
-import { setActiveTask, startEditingTask } from '../../reducers/tasksReducer';
+import { setActiveTask, startEditingTask, startRemovingTask } from '../../reducers/tasksReducer';
 
 const Task = (task: TaskInterface) => {
 	const dispatch = useAppDispatch();
-	const { done, title } = task;
+	const { id, done, title } = task;
 
 	//* Mark task as done or not done
 	const handleDone = () => {
@@ -23,6 +24,28 @@ const Task = (task: TaskInterface) => {
 		dispatch( setActiveTask(task) );
 	}
 
+	//* Remove project
+	function handleRemove() {
+		const swalWithBootstrapButtons = Swal.mixin({
+			customClass: {
+				confirmButton: 'swal__button swal__button--confirm',
+				denyButton: 'swal__button swal__button--deny',
+			},
+			buttonsStyling: false,
+		});
+
+		swalWithBootstrapButtons.fire({
+			title: '<h1 class="h6 mb-sm">Do you want to remove the task?</h1>',
+			showDenyButton: true,
+			confirmButtonText: 'Remove',
+			denyButtonText: `Don't Remove`,
+		}).then((result) => {
+			if (result.isConfirmed) {
+				dispatch( startRemovingTask(id) );
+			}
+		});
+	}
+
 	return (
 		<ul className='task'>
 			<li className='task__title'>{ title }</li>
@@ -36,7 +59,7 @@ const Task = (task: TaskInterface) => {
 				</span>
 
 				<button onClick={ handleEdit }>Edit</button>
-				<button>Delete</button>
+				<button onClick={ handleRemove }>Delete</button>
 			</li>
 		</ul>
 	);

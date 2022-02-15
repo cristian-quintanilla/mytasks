@@ -28,6 +28,9 @@ export const tasksSlice = createSlice({
 		editTask: (state, action: PayloadAction<TaskInterface>) => {
 			state.tasks = state.tasks.map(task => task.id === action.payload.id ? action.payload : task);
 		},
+		removeTask: (state, action: PayloadAction<string>) => {
+			state.tasks = state.tasks.filter(task => task.id !== action.payload);
+		},
 		setTasks: (state, action: PayloadAction<TaskInterface>) => {
 			state.tasks = [ action.payload,  ...state.tasks ];
 		},
@@ -45,6 +48,7 @@ export const {
 	setActiveTask,
 	cleanActualTask,
 	editTask,
+	removeTask,
 	setTasks,
 	setTasksProject,
 	cleanTasks
@@ -104,6 +108,18 @@ export const startEditingTask = (task: TaskInterface): AppThunk => {
 	}
 }
 
+//* Start removing task
+export const startRemovingTask = (id: string): AppThunk => {
+	return async (dispatch: AppDispatch, getState) => {
+		const { uid } = getState().auth;
+		const documentRef = doc(db, `${ uid }/mytasks/tasks/${ id }`);
+
+		await deleteDoc(documentRef);
+		dispatch( removeTask(id) );
+	}
+}
+
+//* Selectors
 export const getTasksProject = (state: RootState) => state.tasks.tasks;
 export const getActiveTask = (state: RootState) => state.tasks.activeTask;
 

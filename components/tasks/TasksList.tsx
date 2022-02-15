@@ -26,7 +26,7 @@ const TasksList = (project: ProjectInterface) => {
 	};
 
 	//* Remove project
-	function remove() {
+	function handleRemove() {
 		const swalWithBootstrapButtons = Swal.mixin({
 			customClass: {
 				confirmButton: 'swal__button swal__button--confirm',
@@ -48,7 +48,7 @@ const TasksList = (project: ProjectInterface) => {
 	}
 
 	//* Edit Project
-	function edit() {
+	function handleEdit() {
 		const editProjectData: ProjectInterface = {
 			...project,
 			title: titleForm
@@ -75,7 +75,7 @@ const TasksList = (project: ProjectInterface) => {
 			}
 
 			<div className='tasks__options'>
-				<button className='tasks__delete' onClick={ remove }>
+				<button className='tasks__delete' onClick={ handleRemove }>
 					Delete Project
 					<FaTrashAlt />
 				</button>
@@ -95,7 +95,7 @@ const TasksList = (project: ProjectInterface) => {
 						className='tasks__options--edit__button'
 						type='submit'
 						disabled={ titleForm.trim().length < 3 ? true : false }
-						onClick={ edit }
+						onClick={ handleEdit }
 					>
 						Edit Project
 						<FaPencilAlt />
