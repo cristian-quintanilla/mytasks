@@ -1,7 +1,7 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { addDoc, collection, db, deleteDoc, doc, updateDoc } from '../firebase/config';
-import { AppDispatch, AppThunk, RootState } from '../store/store';
+import { addDoc, auth, collection, db, deleteDoc, doc, updateDoc } from '../firebase/config';
+import { RootState } from '../store/store';
 import { TaskInterface } from '../interfaces';
 import { loadTasks } from '../helpers/loadTasks';
 
@@ -55,20 +55,24 @@ export const {
 } = tasksSlice.actions;
 
 //* Start loading tasks for project
-export const getTasks = (id: string): AppThunk => {
-	return async (dispatch: AppDispatch, getState) => {
-		const { uid } = getState().auth;
+export const getTasks = createAsyncThunk(
+	'tasks/getTasks',
+	async (id: string, { dispatch, getState }) => {
+		const { auth: { uid } } = getState() as RootState;
 
 		const tasks = await loadTasks(uid, id);
 		dispatch( setTasksProject(tasks) );
-	};
-}
+	}
+);
 
 //* Start creating new task
-export const startNewTask = (title: string): AppThunk => {
-	return async (dispatch: AppDispatch, getState) => {
-		const { id } = getState().projects.activeProject || {};
-		const { uid } = getState().auth;
+export const startNewTask = createAsyncThunk(
+	'tasks/startNewTask',
+	async (title: string, { dispatch, getState }) => {
+		const { projects: { activeProject }, auth } = getState() as RootState;
+
+		const { id } = activeProject || {};
+		const { uid } = auth;
 
 		try {
 			const userTasksRef = await addDoc(
@@ -93,31 +97,34 @@ export const startNewTask = (title: string): AppThunk => {
 			console.log(error);
 		}
 	}
-}
+);
 
 //* Start editing task
-export const startEditingTask = (task: TaskInterface): AppThunk => {
-	const { id, done, title } = task;
+export const startEditingTask = createAsyncThunk(
+	'tasks/startEditingTask',
+	async (task: TaskInterface, { dispatch, getState }) => {
+		const { id, done, title } = task;
+		const { auth: { uid } } = getState() as RootState;
 
-	return async (dispatch: AppDispatch, getState) => {
-		const { uid } = getState().auth;
 		const documentRef = doc(db, `${ uid }/mytasks/tasks/${ id }`);
-
 		await updateDoc(documentRef, { done, title });
+
 		dispatch( editTask(task) );
 	}
-}
+);
 
 //* Start removing task
-export const startRemovingTask = (id: string): AppThunk => {
-	return async (dispatch: AppDispatch, getState) => {
-		const { uid } = getState().auth;
-		const documentRef = doc(db, `${ uid }/mytasks/tasks/${ id }`);
+export const startRemovingTask = createAsyncThunk(
+	'tasks/startRemovingTask',
+	async (id: string, { dispatch, getState }) => {
+		const { auth: { uid } } = getState() as RootState;
 
+		const documentRef = doc(db, `${ uid }/mytasks/tasks/${ id }`);
 		await deleteDoc(documentRef);
+
 		dispatch( removeTask(id) );
 	}
-}
+);
 
 //* Selectors
 export const getTasksProject = (state: RootState) => state.tasks.tasks;

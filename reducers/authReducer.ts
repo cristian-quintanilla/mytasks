@@ -1,7 +1,7 @@
-import toast from 'react-hot-toast';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { User } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
+import toast from 'react-hot-toast';
 
 import {
 	auth,
@@ -13,7 +13,7 @@ import {
 	updateProfile,
 } from '../firebase/config';
 
-import { AppDispatch, AppThunk, RootState } from '../store/store';
+import { RootState } from '../store/store';
 import { AuthInterface, LoginRecordsInterface, NewUserInterface } from '../interfaces';
 import { startLoading, stopLoading } from './uiReducer';
 import { cleanProjects } from './projectsReducer';
@@ -59,8 +59,9 @@ export const authSlice = createSlice({
 export const { login, logout } = authSlice.actions;
 
 //* Start Google Login
-export const startLoginGoogle = (): AppThunk => {
-	return async (dispatch: AppDispatch) => {
+export const startLoginGoogle = createAsyncThunk(
+	'auth/startLoginGoogle',
+	async (_, { dispatch }) => {
 		try {
 			const { user } = await signInWithPopup(auth, googleAuthProvider);
 			const { uid, displayName } = user;
@@ -70,16 +71,16 @@ export const startLoginGoogle = (): AppThunk => {
 			console.log(err);
 		}
 	}
-}
+);
 
 //* Start Register with Email and Password
-export const startRegisterWithEmailAndPassword = (newUser: NewUserInterface): AppThunk => {
-	const { name, email, password } = newUser;
-
-	return async (dispatch: AppDispatch) => {
-		dispatch( startLoading() );
+export const startRegisterWithEmailAndPassword = createAsyncThunk(
+	'auth/startRegisterWithEmailAndPassword',
+	async (newUser: NewUserInterface, { dispatch }) => {
+		const { email, name, password } = newUser;
 
 		try {
+			dispatch( startLoading() );
 			const { user } = await createUserWithEmailAndPassword(auth, email, password);
 			const currentUser: User = auth.currentUser as User;
 			await updateProfile(currentUser, { displayName: name });
@@ -101,13 +102,13 @@ export const startRegisterWithEmailAndPassword = (newUser: NewUserInterface): Ap
 			dispatch( stopLoading() );
 		}
 	}
-}
+);
 
 //* Start Login with Email and Password
-export const startLoginWithEmailAndPassword = (records: LoginRecordsInterface): AppThunk => {
-	const { email, password } = records;
-
-	return async (dispatch: AppDispatch) => {
+export const startLoginWithEmailAndPassword = createAsyncThunk(
+	'auth/startLoginWithEmailAndPassword',
+	async (records: LoginRecordsInterface, { dispatch }) => {
+		const { email, password } = records;
 		dispatch( startLoading() );
 
 		try {
@@ -133,18 +134,19 @@ export const startLoginWithEmailAndPassword = (records: LoginRecordsInterface): 
 			dispatch( stopLoading() );
 		}
 	}
-}
+);
 
 //* Start Sign Out
-export const startSignOut = (): AppThunk => {
-	return async (dispatch: AppDispatch) => {
+export const startSignOut = createAsyncThunk(
+	'auth/startSignOut',
+	async (_, { dispatch }) => {
 		await signOut(auth);
 
 		dispatch( logout() );
 		dispatch( cleanProjects() );
 		dispatch( cleanTasks() );
 	}
-}
+);
 
 //* Get Authenticated User
 export const getUser = (state: RootState) => {

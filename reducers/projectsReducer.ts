@@ -1,11 +1,10 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { addDoc, collection, db, deleteDoc, doc, updateDoc } from '../firebase/config';
-import { AppDispatch, AppThunk, RootState } from '../store/store';
+import { RootState } from '../store/store';
 import { loadProjects } from '../helpers/loadProjects';
 import { openCloseForm } from './uiReducer';
 import { ProjectInterface } from '../interfaces';
-import { TaskInterface } from '../interfaces/index';
 
 export type ProjectsState = {
 	projects: ProjectInterface[];
@@ -55,9 +54,10 @@ export const {
 } = projectsSlice.actions;
 
 //* Start creating new project
-export const startNewProject = (title: string): AppThunk => {
-	return async (dispatch: AppDispatch, getState) => {
-		const { uid } = getState().auth;
+export const startNewProject = createAsyncThunk(
+	'projects/startNewProject',
+	async (title: string, { dispatch, getState }) => {
+		const { auth: { uid } } = getState() as RootState;
 
 		try {
 			const userProjectsRef = await addDoc(
@@ -77,39 +77,41 @@ export const startNewProject = (title: string): AppThunk => {
 			console.log(error);
 		}
 	}
-}
+);
 
 //* Start loading projects
-export const startLoadingProjects = (uid: string): AppThunk => {
-	return async (dispatch: AppDispatch) => {
+export const startLoadingProjects = createAsyncThunk(
+	'projects/startLoadingProjects',
+	async (uid: string, { dispatch }) => {
 		const projects = await loadProjects(uid);
 		dispatch( setProjects(projects) );
 	}
-}
+);
 
 //* Start removing project
-export const startRemovingProject = (id: string): AppThunk => {
-	return async (dispatch: AppDispatch, getState) => {
-		const { uid } = getState().auth;
+export const startRemovingProject = createAsyncThunk(
+	'projects/startRemovingProject',
+	async (id: string, { dispatch, getState }) => {
+		const { auth: { uid } } = getState() as RootState;
 		const documentRef = doc(db, `${ uid }/mytasks/projects/${ id }`);
 
 		await deleteDoc(documentRef);
 		dispatch( removeProject(id) );
 	}
-}
+);
 
 //* Start editing project
-export const startEditingProject = (project: ProjectInterface): AppThunk => {
-	const { id, title } = project;
-
-	return async (dispatch: AppDispatch, getState) => {
-		const { uid } = getState().auth;
+export const startEditingProject = createAsyncThunk(
+	'projects/startEditingProject',
+	async (project: ProjectInterface, { dispatch, getState }) => {
+		const { auth: { uid } } = getState() as RootState;
+		const { id, title } = project;
 		const documentRef = doc(db, `${ uid }/mytasks/projects/${ id }`);
 
 		await updateDoc(documentRef, { title });
 		dispatch( editProject(project) );
 	}
-}
+);
 
 //* Selectors
 export const getProjects = (state: RootState) => state.projects.projects;
