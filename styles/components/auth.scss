@@ -130,40 +130,32 @@
 		@include form-submit;
 
 		&__social {
-			display: flex;
-			justify-content: space-between;
-			gap: 2rem;
-
 			margin-bottom: .5rem;
 
 			&--button {
 				display: flex;
 				align-items: center;
 				justify-content: center;
-				transition: all .5s ease;
+				gap: 1rem;
 
-				border: 1px solid $color-grey-dark-1;
-				border-radius: 100%;
 				background-color: lighten($color: $color-grey-light-1, $amount: 25);
+				border-radius: 0.5rem;
+				border: 2px solid $color-grey-dark-1;
 				color: $color-grey-dark-1;
+				font-size: 1.6rem;
+				font-weight: 600;
 				height: 4rem;
-				width: 4rem;
+				padding: 1rem 4rem;
+
+				transition: all .5s ease;
 
 				&:hover {
 					color: lighten($color: $color-grey-light-1, $amount: 25);
 					cursor: pointer;
 				}
 
-				&:nth-child(1):hover {
+				&:hover {
 					background-color: $color-google;
-				}
-
-				&:nth-child(2):hover {
-					background-color: $color-facebook;
-				}
-
-				&:nth-child(3):hover {
-					background-color: $color-twitter;
 				}
 			}
 		}
