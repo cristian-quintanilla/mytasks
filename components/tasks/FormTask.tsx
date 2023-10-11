@@ -13,13 +13,14 @@ import { TaskInterface } from '../../interfaces';
 const FormTask = () => {
   const dispatch = useAppDispatch();
 	const activeTask = useAppSelector(getActiveTask);
-
 	const [ titleForm, setTitleForm ] = useState<string>('');
 
 	//* Set title form value when active task changes
 	useEffect(() => {
 		if (activeTask) {
 			setTitleForm(activeTask.title);
+		} else {
+			setTitleForm('');
 		}
 	}, [activeTask]);
 

@@ -19,7 +19,7 @@ export const tasksSlice = createSlice({
 	name: 'tasks',
 	initialState,
 	reducers: {
-		setActiveTask: (state, action: PayloadAction<TaskInterface>) => {
+		setActiveTask: (state, action: PayloadAction<TaskInterface | null>) => {
 			state.activeTask = action.payload;
 		},
 		cleanActualTask: (state) => {

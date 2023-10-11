@@ -1,8 +1,9 @@
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { ProjectInterface } from '../../interfaces';
 
-import { setActiveProject, getActiveProject } from '../../reducers/projectsReducer';
 import { getTasks } from '../../reducers/tasksReducer';
+import { setActiveProject, getActiveProject } from '../../reducers/projectsReducer';
+import { setActiveTask } from '../../reducers/tasksReducer';
 
 const SidebarLink = ({ id, title }: ProjectInterface) => {
 	const dispatch = useAppDispatch();
@@ -12,6 +13,8 @@ const SidebarLink = ({ id, title }: ProjectInterface) => {
 	const setActiveProjectHandler = () => {
 		dispatch( setActiveProject(id) );
 		dispatch( getTasks(id) );
+
+		dispatch( setActiveTask(null) );
 	}
 
 	return (
